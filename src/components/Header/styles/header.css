@@ -1,0 +1,20 @@
+.header {
+  padding: 16px 100px;
+  border-bottom: 2px solid var(--header-border);
+  display: flex;
+  justify-content: space-between;
+}
+.header .header__logo-title {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.header .header__logo-title .logo-title__title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  font-family: "Roboto", sans-serif;
+}
+.header .header__user-img {
+  border-radius: 50%;
+}/*# sourceMappingURL=header.css.map */

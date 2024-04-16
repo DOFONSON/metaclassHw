@@ -1,4 +1,11 @@
+import LogoTitle from "./components/LogoTitle"
+import UserIcon from "./components/UserIcon"
 const Header = () => {
-    return <header><h1>Header</h1></header>
+    return (
+        <header className="header">
+            <LogoTitle></LogoTitle>
+            <UserIcon></UserIcon>
+        </header>
+    )
 }
 export default Header

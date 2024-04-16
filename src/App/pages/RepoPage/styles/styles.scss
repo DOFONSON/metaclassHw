@@ -1,0 +1,25 @@
+body {
+    background-color: var(--main-back);
+    font-family: 'Roboto', sans-serif;
+}
+
+/*# sourceMappingURL=styles.css.map */
+
+
+
+.page__main {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 22px;
+}
+
+.wrapper {
+    max-width: 1237px;
+}
+
+.RepoPage__org-list-title {
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 60px;
+    margin-bottom: 60px;
+}

@@ -1,0 +1,26 @@
+.super-input {
+  padding: 18px 12px 16px;
+  border: none;
+  width: 369px;
+  font-size: 16px;
+}
+
+.super-input:focus {
+  outline: none;
+  border: 1px solid var(--brand);
+}
+
+.super-input-block {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  top: 13.5px;
+  left: 330px;
+}
+
+.super-input:disabled {
+  background-color: var(--white);
+  color: rgba(0, 0, 0, 0.2);
+}/*# sourceMappingURL=styles.css.map */

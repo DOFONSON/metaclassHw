@@ -13,6 +13,7 @@ export type MultiDropdownProps = {
     onChange: (value: Option[]) => void;
     disabled?: boolean;
     getTitle: (value: Option[]) => string;
+
 };
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value, onChange, disabled, getTitle }) => {

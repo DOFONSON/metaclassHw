@@ -44,7 +44,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
         setDisplayOpt(prevState => prevState === 'none' ? 'block' : 'none');
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = () => {
         console.log(parametrs);
 
     };

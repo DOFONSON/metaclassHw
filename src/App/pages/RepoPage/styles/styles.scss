@@ -27,7 +27,33 @@ body {
 
 .repos {
     display: grid;
-    grid-template-columns: auto auto auto;
-    align-self: center;
-    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 36px;
+    row-gap: 80px;
+}
+
+.repos-bottom-btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.repos-bottom-btns__btns-list {
+    display: flex;
+
+}
+
+.repos-bottom-btn {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    background-color: inherit;
+    border: none;
+    padding: 10px 14px;
+}
+
+.repos-bottom-btn--active {
+    background-color: var(--button-primary-bg);
+    color: var(--btn-active-text);
 }

@@ -47,7 +47,10 @@ const Text: React.FC<TextProps> = ({
         fontWeight: weight,
         WebkitLineClamp: maxLines,
         lineClamp: maxLines,
-        display: '-webkit-box'
+        display: '-webkit-box',
+        overflow: 'hidden',
+        WebkitBoxOrient: 'vertical',
+
     };
 
     return React.createElement(tag, {

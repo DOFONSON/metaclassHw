@@ -24,3 +24,15 @@
     background-color: var(--white);
     color: rgba(0, 0, 0, 0.2);
 }
+
+.inputSearchBlock {
+    margin-top: 20px;
+    display: flex;
+    gap: 19px;
+}
+
+.search__input--input {
+    .super-input {
+        min-width: 1154px;
+    }
+}

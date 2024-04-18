@@ -1,7 +1,8 @@
 import MultiDropdown from "./components/MultiDropdown"
 import Input from "./components/Input"
+import Button from "./components/Button"
 import { Option } from "./components/MultiDropdown/MultiDropdown"
-
+import SearchIcon from "./components/Button/SearchIconBtn"
 
 const Search = () => {
     return (
@@ -13,7 +14,9 @@ const Search = () => {
             ]}
                 value={[{ key: 'msk', value: 'Москва' }]} onChange={() => ({ key, value }: Option) => console.log('Выбрано:', key, value)}
                 getTitle={(values: Option[]) => values.length === 0 ? 'Выберите город' : `Выбрано: ${values.length}`} ></MultiDropdown>
-            <Input onChange={() => { }}></Input>
+            <div className="inputSearchBlock">
+                <Input onChange={() => { }} className="search__input--input"></Input><Button ><SearchIcon></SearchIcon></Button>
+            </div>
         </div>
 
     )

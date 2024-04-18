@@ -2,6 +2,8 @@
     max-width: 360px;
     box-sizing: border-box;
     cursor: pointer;
+    min-height: 506px;
+    background-color: var(--card-bg);
 }
 
 .card-icon:hover {
@@ -20,6 +22,9 @@
     font-size: 14px;
     line-height: 18px;
     font-weight: 500;
+    display: flex;
+    gap: 4px;
+    align-items: center;
 }
 
 .img__block {
@@ -65,7 +70,6 @@
 }
 
 .card-bottom {
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,6 +79,12 @@
     font-size: 16px;
     line-height: 20px;
     color: var(--text-secondary);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .card__action-slot {
@@ -87,4 +97,9 @@
     padding: 17px 20px;
     font-size: 18px;
     line-height: 18px;
+}
+
+.card__parametrs {
+    display: flex;
+    gap: 30px;
 }

@@ -1,21 +1,9 @@
 import Header from '../../../components/Header';
 import Search from './components/Search';
 import Users from './components/Users'
-import axios from 'axios';
 import React from 'react'
-import { useEffect } from 'react';
 const RepoPage = () => {
-    useEffect(() => {
-        const fetch = async () => {
-            const result = await axios({
-                method: 'get',
-                url: 'https://api.github.com/orgs/ktsstudio/repos'
-            })
-            console.log(result);
 
-        }
-        fetch()
-    }, [])
     return (
 
         <React.Fragment >

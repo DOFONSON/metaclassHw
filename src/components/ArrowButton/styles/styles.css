@@ -1,0 +1,10 @@
+.arrowBtn {
+  padding: 5px 3px;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+.arrowBtn:disabled svg path {
+  stroke: var(--text-secondary);
+}/*# sourceMappingURL=styles.css.map */

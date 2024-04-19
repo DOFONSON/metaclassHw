@@ -1,5 +1,29 @@
+import { useState, useEffect } from 'react';
+import Header from "../../../components/Header";
+import Info from "./components/Info";
+import { FETCHED_DATA } from "../../../config/routes";
+import { useParams } from 'react-router-dom';
+import { Repo } from '../../../config/routes';
+
 const UserPage = () => {
-    return <p>123123123</p>
+    const { id } = useParams();
+    const [repo, setRepo] = useState<Repo | null>(null);
+
+    useEffect(() => {
+        const foundRepo = FETCHED_DATA.find((repo: Repo) => repo.id.toString() === id);
+        setRepo(foundRepo);
+
+    }, [id]);
+
+    return (
+        <>
+            <Header />
+            <main className='main--user-page'>
+                {repo && <Info compName={repo.company_login} compURL={repo.avatarUrl} repName={repo.name} topics={repo.topics} stars={repo.stargazers_count} watchers={repo.watchers} forks={repo.forks} contributors={repo.contributors} languages={repo.languagesResult} />}
+
+            </main>
+        </>
+    );
 }
 
-export default UserPage
+export default UserPage;

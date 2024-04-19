@@ -9,7 +9,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<RepoPage></RepoPage>}></Route>
-        <Route path='/user' element={<UserPage></UserPage>}></Route>
+        <Route path='/repo'>
+          <Route path=':id' element={<UserPage></UserPage>}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   )

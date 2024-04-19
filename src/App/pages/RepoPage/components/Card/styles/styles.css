@@ -101,4 +101,8 @@
 .card__parametrs {
   display: flex;
   gap: 30px;
+}
+
+.card__title {
+  color: var(--text-primary);
 }/*# sourceMappingURL=styles.css.map */

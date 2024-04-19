@@ -1,28 +1,10 @@
 import { useState, useEffect } from 'react';
 import Card from '../Card';
-import axios from 'axios';
 import BottomBtns from './components/BottomBtns/BottomBtns';
 import ArrowButton from '../../../../../components/ArrowButton';
+import { FETCHED_DATA, Repo } from '../../../../../config/routes';
 
-type Data = {
-    id?: string;
-    stargazers_count?: number;
-    description?: 'string';
-    owner: {
-        avatar_url?: 'string'
-    };
-    name?: string;
-    updated_at: string;
-}
 
-type Repo = {
-    id: number;
-    stargazers_count: number;
-    description: string;
-    avatarUrl: 'string';
-    updated_at: string;
-    name: string;
-}
 
 const Users = () => {
     const [repos, setRepos] = useState<Repo[]>([]);
@@ -35,30 +17,9 @@ const Users = () => {
     const totalPages = Math.ceil(repos.length / reposPerPage);
     const lastPageCount = repos.length % reposPerPage === 0 ? reposPerPage : repos.length % reposPerPage;
 
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     useEffect(() => {
-        const fetchRepos = async () => {
-            try {
-                const result = await axios.get('https://api.github.com/orgs/ktsstudio/repos');
-                const updatedRepos = result.data.map((raw: Data) => {
-                    const dateUpdate = new Date(Date.parse(raw.updated_at));
-                    const newUpdate = dateUpdate.getDay() + ' ' + months[dateUpdate.getMonth()];
-                    return {
-                        id: raw.id,
-                        stargazers_count: raw.stargazers_count || 0,
-                        description: raw.description,
-                        avatarUrl: raw.owner.avatar_url,
-                        name: raw.name,
-                        updated_at: newUpdate
-                    };
-                });
-                setRepos(updatedRepos);
-            } catch (error) {
-                console.error('Error fetching repos:', error);
-            }
-        };
-        fetchRepos();
+        setRepos(FETCHED_DATA)
     }, []);
 
     useEffect(() => {
@@ -136,7 +97,7 @@ const Users = () => {
                 {repos
                     .slice(currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage : currentPage * reposPerPage, currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage + lastPageCount : currentPage * reposPerPage + reposPerPage)
                     .map((repo: Repo) => (
-                        <li key={repo.id}><Card className={'repos__card'} image={repo.avatarUrl} captionSlot={repo.stargazers_count} dateSlot={repo.updated_at} title={repo.name} contentSlot={repo.description} /></li>
+                        <li key={repo.id}><Card id={repo.id} className={'repos__card'} image={repo.avatarUrl} captionSlot={repo.stargazers_count} dateSlot={repo.updatedAt} title={repo.name} contentSlot={repo.description} /></li>
                     ))}
 
             </ul>

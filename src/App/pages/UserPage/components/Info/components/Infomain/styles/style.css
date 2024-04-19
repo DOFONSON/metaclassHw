@@ -1,0 +1,115 @@
+.info-main__header--title {
+  display: flex;
+  gap: 8px;
+  color: var(--repo-link);
+  font-size: 16px;
+  line-height: 18.75px;
+  font-weight: 700;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.info-main__tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.info-main__tags .info-main__tag {
+  padding: 4px 16px;
+  background-color: var(--tag-back);
+  color: var(--tag-color);
+  border-radius: 20px;
+}
+
+.optional-info {
+  display: flex;
+  gap: 80px;
+}
+
+.info-main__header--list {
+  margin-bottom: 20px;
+}
+.info-main__header--list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.contributors__title {
+  position: relative;
+  margin-bottom: 8px;
+}
+.contributors__title .title__title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+}
+.contributors__title .contributors__title--span {
+  position: absolute;
+  background-color: var(--button-primary-bg-disabled);
+  color: rgba(0, 0, 0, 0.62);
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: 600;
+  padding: 4px 6px;
+  border-radius: 100%;
+  top: 0px;
+  left: 102px;
+}
+
+.contributors__list .contributors__list-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 14px;
+}
+.contributors__list .contributors__list-item .contributors__img {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid var(--img-border);
+}
+
+.language .language__progress {
+  display: flex;
+  gap: 2px;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 273px;
+  height: 100%;
+}
+.language .language__progress span {
+  width: -moz-max-content;
+  width: max-content;
+}
+.language .language__list {
+  margin-top: 8px;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  max-width: 250px;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+}
+.language .language__list .language__list-item {
+  position: relative;
+  padding-left: 16px;
+}
+.language .language__list .language__list-item .language__list-item--circle {
+  position: absolute;
+  top: 4px;
+  left: 0;
+}
+.language .language__list .language__list-item .list-item-percentage {
+  color: var(--text-secondary);
+}/*# sourceMappingURL=style.css.map */

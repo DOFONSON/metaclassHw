@@ -52,4 +52,8 @@ body {
 .repos-bottom-btn--active {
   background-color: var(--button-primary-bg);
   color: var(--btn-active-text);
+}
+
+.repo-card__link {
+  text-decoration: none;
 }/*# sourceMappingURL=styles.css.map */

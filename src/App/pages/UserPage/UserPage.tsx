@@ -20,7 +20,6 @@ const UserPage = () => {
             <Header />
             <main className='main--user-page'>
                 {repo && <Info compName={repo.company_login} compURL={repo.avatarUrl} repName={repo.name} topics={repo.topics} stars={repo.stargazers_count} watchers={repo.watchers} forks={repo.forks} contributors={repo.contributors} languages={repo.languagesResult} />}
-
             </main>
         </>
     );

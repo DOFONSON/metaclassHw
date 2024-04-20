@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const GITHUB_TOKEN = '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';
-
+const GITHUB_TOKEN = '';
 
 type Data = {
     id?: string;
@@ -33,6 +32,7 @@ export type Repo = {
     forks: number;
     contributors: {}[];
     languagesResult: object;
+    readme: string | undefined;
 };
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -46,7 +46,6 @@ const fetchRepos = async () => {
         });
         const repos = await Promise.all(result.data.map(async (raw: Data) => {
             const dateUpdate = new Date(Date.parse(raw.updated_at));
-            console.log(raw);
 
             const newUpdate = dateUpdate.getDay() + ' ' + months[dateUpdate.getMonth()];
 
@@ -60,7 +59,18 @@ const fetchRepos = async () => {
                     Authorization: `token ${GITHUB_TOKEN}`
                 }
             });
-            console.log(languagesResult);
+
+            let readmeContent: string | undefined = undefined;
+            try {
+                const readmeResult = await axios.get(`https://api.github.com/repos/${raw.owner.login}/${raw.name}/readme`, {
+                    headers: {
+                        Authorization: `token ${GITHUB_TOKEN}`
+                    }
+                });
+                readmeContent = decodeURIComponent(escape(atob(readmeResult.data.content)));
+            } catch (error) {
+                console.error('Error while fetching:', error);
+            }
 
             const contributors = contributorsResult.data;
 
@@ -76,7 +86,8 @@ const fetchRepos = async () => {
                 watchers: raw.watchers,
                 forks: raw.forks_count,
                 contributors: contributors,
-                languagesResult: languagesResult
+                languagesResult: languagesResult,
+                readme: readmeContent
             };
         }));
         return repos;

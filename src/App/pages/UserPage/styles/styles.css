@@ -1,3 +1,19 @@
 .main--user-page {
   padding: 40px 92px;
-}/*# sourceMappingURL=styles.css.map */
+}
+
+.readme {
+  padding: 16px;
+  border: 1px solid var(--text-secondary);
+}
+
+.readme .readme__title {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.readme .listik {
+  padding-left: 30px;
+  list-style: disc;
+}

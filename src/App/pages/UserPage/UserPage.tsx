@@ -4,7 +4,7 @@ import Info from "./components/Info";
 import { FETCHED_DATA } from "../../../config/routes";
 import { useParams } from 'react-router-dom';
 import { Repo } from '../../../config/routes';
-
+import Readme from './components/Readme';
 const UserPage = () => {
     const { id } = useParams();
     const [repo, setRepo] = useState<Repo | null>(null);
@@ -20,6 +20,7 @@ const UserPage = () => {
             <Header />
             <main className='main--user-page'>
                 {repo && <Info compName={repo.company_login} compURL={repo.avatarUrl} repName={repo.name} topics={repo.topics} stars={repo.stargazers_count} watchers={repo.watchers} forks={repo.forks} contributors={repo.contributors} languages={repo.languagesResult} />}
+                <Readme data={repo?.readme}></Readme>
             </main>
         </>
     );

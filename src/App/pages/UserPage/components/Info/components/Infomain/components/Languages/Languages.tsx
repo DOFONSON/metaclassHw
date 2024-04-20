@@ -38,7 +38,6 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
     for (const key in languages.data) {
         percentage[key] = Math.round(languages.data[key] / total * 1000) / 10
     }
-    Object.keys(percentage).forEach((language => console.log(language)))
 
     return (
         <div className="language">

@@ -1,0 +1,37 @@
+.info_main__header_title {
+    display: flex;
+    gap: 8px;
+    color: var(--repo-link);
+    font-size: 16px;
+    line-height: 18.75px;
+    font-weight: 700;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.info_main__tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .info_main__tag {
+        padding: 4px 16px;
+        background-color: var(--tag-back);
+        color: var(--tag-color);
+        border-radius: 20px;
+    }
+}
+
+
+.info_main__header_list {
+    li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        color: var(--text-secondary);
+    }
+
+    margin-bottom: 20px;
+
+}

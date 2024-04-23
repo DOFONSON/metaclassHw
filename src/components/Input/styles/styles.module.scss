@@ -1,0 +1,44 @@
+.super_input {
+    padding: 18px 12px 16px;
+    border: none;
+    width: 369px;
+    font-size: 16px;
+}
+
+.super_input:focus {
+    outline: none;
+    border: 1px solid var(--brand);
+}
+
+.super_input_block {
+    position: relative;
+}
+
+.input_icon {
+    position: absolute;
+    top: 13.5px;
+    left: 330px;
+}
+
+.super_input:disabled {
+    background-color: var(--white);
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.srchinp_input {
+    min-width: 1154px;
+}
+
+
+.multi__options {
+    ul {
+        background-color: var(--btn-active-text);
+        margin-top: 8px;
+        border-radius: 8px;
+        max-width: 393px;
+
+        li {
+            padding: 14px 12px;
+        }
+    }
+}

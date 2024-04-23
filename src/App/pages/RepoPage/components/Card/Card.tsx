@@ -1,6 +1,9 @@
 import React from 'react';
+import cn from 'clsx'
 import Text from "../Text";
-import Star from './Star'
+import Star from '../../../../../components/Star'
+import styles from './styles/styles.module.scss'
+
 import { Link } from 'react-router-dom';
 export type CardProps = {
     className?: string,
@@ -14,35 +17,36 @@ export type CardProps = {
     dateSlot?: string
     id: number
 };
+console.log(styles.cardIcon);
 
-const Card: React.FC<CardProps> = ({ className, image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot, dateSlot, id }) => {
+const Card: React.FC<CardProps> = ({ image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot, dateSlot, id }) => {
     return (
-        <Link to={`/repo/${id}`} className='repo-card__link'>
-            <div className={className + " card-icon"} onClick={onClick}>
-                <div className="img__block">
+        <Link to={`/repo/${id}`} className={styles.repo_card__link}>
+            <div className={cn(styles.repo_card__link, `${styles.cardIcon}`)} onClick={onClick}>
+                <div className={`${styles.img__block}`}>
                     <img src={image} alt="card photo" />
                 </div>
-                <div className="card-main">
-                    <div className="card-description">
-                        <div className="card__parametrs">
-                            {captionSlot ? <span className='card-icon--span'><Star></Star>{captionSlot}</span> : ''}
-                            {dateSlot ? <span className='card-icon--span'>Updated {dateSlot}</span> : ''}
+                <div className={`${styles.card__main}`}>
+                    <div className={`${styles.card__description}`}>
+                        <div className={`${styles.card__parametrs}`}>
+                            {captionSlot ? <span className={`${styles.cardIconSpan}`}><Star color={'#FF9432'} />{captionSlot}</span> : ''}
+                            {dateSlot ? <span className={`${styles.cardIconSpan}`}>Updated {dateSlot}</span> : ''}
                         </div>
-                        <Text className='card__title' tag='h3' weight='bold' children={title} color='accent' maxLines={2}></Text>
-                        <Text className='card__descr' children={subtitle} color='secondary' maxLines={2}></Text>
+                        <Text className={`${styles.card__title}`} tag='h3' weight='bold' children={title} color='accent' maxLines={2}></Text>
+                        <Text className={`${styles.card__descr}`} children={subtitle} color='secondary' maxLines={2}></Text>
                     </div>
 
-                    <div className="card-bottom">
-                        {contentSlot ? <div className="card__bottom-content">
+                    <div className={`${styles.bottomCard}`}>
+                        {contentSlot ? <div className={`${styles.card__bottomContent}`}>
                             {contentSlot}
                         </div> : ''}
-                        {actionSlot ? <div className="card__action-slot">
+                        {actionSlot ? <div className={`${styles.card__actionSlot}`}>
                             {actionSlot}
                         </div> : ''}
                     </div>
                 </div>
             </div>
-        </Link>
+        </Link >
 
     )
 };

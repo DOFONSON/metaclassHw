@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const GITHUB_TOKEN = '';
+export const GITHUB_TOKEN = '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';
 
 type Data = {
     id?: string;
@@ -49,30 +49,7 @@ const fetchRepos = async () => {
 
             const newUpdate = dateUpdate.getDay() + ' ' + months[dateUpdate.getMonth()];
 
-            const contributorsResult = await axios.get(raw.contributors_url, {
-                headers: {
-                    Authorization: `token ${GITHUB_TOKEN}`
-                }
-            });
-            const languagesResult = await axios.get(raw.languages_url, {
-                headers: {
-                    Authorization: `token ${GITHUB_TOKEN}`
-                }
-            });
 
-            let readmeContent: string | undefined = undefined;
-            try {
-                const readmeResult = await axios.get(`https://api.github.com/repos/${raw.owner.login}/${raw.name}/readme`, {
-                    headers: {
-                        Authorization: `token ${GITHUB_TOKEN}`
-                    }
-                });
-                readmeContent = decodeURIComponent(escape(atob(readmeResult.data.content)));
-            } catch (error) {
-                console.error('Error while fetching:', error);
-            }
-
-            const contributors = contributorsResult.data;
 
             return {
                 id: raw.id,
@@ -85,9 +62,9 @@ const fetchRepos = async () => {
                 topics: raw.topics,
                 watchers: raw.watchers,
                 forks: raw.forks_count,
-                contributors: contributors,
-                languagesResult: languagesResult,
-                readme: readmeContent
+                contributors: raw.contributors_url,
+                languagesResult: raw.languages_url,
+                owner: raw.owner
             };
         }));
         return repos;

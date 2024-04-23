@@ -6,14 +6,23 @@
   padding: 16px;
   border: 1px solid var(--text-secondary);
 }
-
 .readme .readme__title {
   font-weight: 700;
   font-size: 12px;
   line-height: 14px;
 }
-
+.readme .readme__main {
+  padding: 32px;
+}
 .readme .listik {
   padding-left: 30px;
   list-style: disc;
 }
+.readme .readme__tite-title {
+  display: block;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}/*# sourceMappingURL=styles.css.map */

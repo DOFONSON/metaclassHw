@@ -1,12 +1,3 @@
-@import url("./normalise.css");
-@import url("../components/Header/styles/header.scss");
-@import url("./fonst.scss");
+@import url("./reset/reset.scss");
+@import url("./fonts/fonst.scss");
 @import url("../variables/variables.css");
-@import url("../App/pages/RepoPage/styles/styles.scss");
-@import url("../App/pages/RepoPage/components/Search/styles/styles.scss");
-@import url("../App/pages/RepoPage/components/Card/styles/styles.scss");
-@import url("../components/ArrowButton/styles/styles.scss");
-@import url("../App/pages/RepoPage/components/Search/components/Button/styles/styles.scss");
-@import url("../App/pages/UserPage/components/Info/components/Infohead/styles/styles.scss");
-@import url("../App/pages/UserPage/styles/styles.scss");
-@import url("../App/pages/UserPage/components/Info/components/Infomain/styles/style.scss");/*# sourceMappingURL=index.css.map */

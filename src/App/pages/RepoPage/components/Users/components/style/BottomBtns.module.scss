@@ -1,0 +1,13 @@
+.repos_bottom_btn {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    background-color: inherit;
+    border: none;
+    padding: 10px 14px;
+}
+
+.repos_bottom_btn_active {
+    background-color: var(--button-primary-bg);
+    color: var(--btn-active-text);
+}

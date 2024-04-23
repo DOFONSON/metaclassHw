@@ -1,0 +1,46 @@
+.language {
+    display: block;
+}
+
+.language__list {
+    margin-top: 8px;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-auto-flow: column;
+    column-gap: 20px;
+    max-width: 250px;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.language__list_item {
+    position: relative;
+    padding-left: 16px;
+}
+
+.language__list_item_circle {
+    position: absolute;
+    top: 4px;
+    left: 0;
+}
+
+.list_item_percentage {
+    color: var(--text-secondary);
+}
+
+.language__progress {
+    display: flex;
+    gap: 2px;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 273px;
+    height: 100%;
+
+
+
+}
+
+span {
+    width: max-content;
+}

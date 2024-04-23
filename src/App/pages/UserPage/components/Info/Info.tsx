@@ -1,5 +1,6 @@
 import Infohead from "./components/Infohead"
 import Infomain from "./components/Infomain";
+import style from './styles/Info.module.scss'
 export type InfoProps = {
     compURL?: string;
     compName?: string

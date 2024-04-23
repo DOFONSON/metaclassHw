@@ -1,0 +1,29 @@
+.readme {
+    padding: 16px;
+    border: 1px solid var(--text-secondary);
+    font-family: 'Roboto', sans-serif;
+
+    .readme__title {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .readme__main {
+        padding: 32px;
+    }
+
+    .listik {
+        padding-left: 30px;
+        list-style: disc;
+    }
+
+    .readme__tite_title {
+        display: block;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+}

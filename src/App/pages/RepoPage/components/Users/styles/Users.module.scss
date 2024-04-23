@@ -1,0 +1,37 @@
+.repos_bottom_btn {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    background-color: inherit;
+    border: none;
+    padding: 10px 14px;
+}
+
+.repos_bottom_btn_active {
+    background-color: var(--button-primary-bg);
+    color: var(--btn-active-text);
+}
+
+.repos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 36px;
+    row-gap: 80px;
+}
+
+.repo_card__link {
+    text-decoration: none;
+}
+
+
+.repos_bottom_btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.repos_bottom_btns__btns_list {
+    display: flex;
+
+}

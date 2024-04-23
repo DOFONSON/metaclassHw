@@ -1,3 +1,5 @@
+import style from './styles/Readme.module.scss'
+
 interface ReadmeProps {
     data: string | undefined
 }
@@ -9,7 +11,7 @@ const Readme: React.FC<ReadmeProps> = ({ data }) => {
     for (let i = 1; i < ftext.length; i++) {
         if (i == 0) {
             console.log(ftext[i]);
-            ftext[i] = ftext[i] + '<ul class="listik">'
+            ftext[i] = ftext[i] + `<ul class=${style.listik}>`
         } else {
             ftext[i] = '<li>' + ftext[i] + '</li>';
         }
@@ -19,12 +21,12 @@ const Readme: React.FC<ReadmeProps> = ({ data }) => {
     }
     let fintext = ftext.join('')
     let finatext = fintext.split('<br>')
-    finatext[0] = '<span class="readme__tite-title">' + finatext[0] + '</span>'
+    finatext[0] = `<span class=${style.readme__tite_title}>` + finatext[0] + '</span>'
     let finaltext = finatext.join('<br>')
     return (
-        <div className="readme">
-            <h2 className="readme__title">README.md</h2>
-            <div className="readme__main">
+        <div className={style.readme}>
+            <h2 className={style.readme__title}>README.md</h2>
+            <div className={style.readme__main}>
                 <p dangerouslySetInnerHTML={{ __html: finaltext || '' }} />
 
             </div>

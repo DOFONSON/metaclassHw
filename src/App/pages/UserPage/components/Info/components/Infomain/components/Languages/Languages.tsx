@@ -1,12 +1,8 @@
-import { InfoProps } from "../../../../Info";
+import style from './styles/Languages.module.scss'
 
-interface LanguagesData {
-    [key: string]: number;
-}
-
-interface LanguagesProps extends InfoProps {
+type LanguagesProps = {
     languages: {
-        data: LanguagesData;
+        [key: string]: number;
     };
 }
 
@@ -31,25 +27,26 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
         'Shell': ['#89E051', 16],
         'C': ['#555555', 17]
     }
-    for (const key in languages.data) {
-        total += languages.data[key]
+
+    for (const key in languages) {
+        total += languages[key]
     }
     let percentage: any = {}
-    for (const key in languages.data) {
-        percentage[key] = Math.round(languages.data[key] / total * 1000) / 10
+    for (const key in languages) {
+        percentage[key] = Math.round(languages[key] / total * 1000) / 10
     }
 
     return (
-        <div className="language">
+        <div className={style.language}>
             <div>
-                <div className="language__progress">
+                <div className={style.language__progress}>
                     {Object.keys(percentage).map((language) => (
                         <span key={colors[language][1]} style={{ display: 'block', height: '10px', backgroundColor: colors[language][0], flexBasis: 2.73 * percentage[language] + 'px' }}></span>
                     ))}
                 </div>
-                <ul className="language__list">
+                <ul className={style.language__list}>
                     {Object.keys(percentage).map((language) => (
-                        <li className="language__list-item" key={colors[language][1]}><span className="language__list-item--circle" style={{ backgroundColor: colors[language][0], width: '8px', height: '8px', borderRadius: '100%', display: 'block' }}> </span>{language}: <span className="list-item-percentage">{percentage[language]}%</span></li>
+                        <li className={style.language__list_item} key={colors[language][1]}><span className={style.language__list_item_circle} style={{ backgroundColor: colors[language][0], width: '8px', height: '8px', borderRadius: '100%', display: 'block' }}> </span>{language}: <span className={style.list_item_percentage}>{percentage[language]}%</span></li>
                     ))}
                 </ul>
             </div>

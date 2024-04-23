@@ -3,10 +3,10 @@ import Card from '../Card';
 import BottomBtns from './components/BottomBtns/BottomBtns';
 import ArrowButton from '../../../../../components/ArrowButton';
 import { FETCHED_DATA, Repo } from '../../../../../config/routes';
+import style from './styles/Users.module.scss'
 
 
-
-const Users = () => {
+const Users: React.FC = () => {
     const [repos, setRepos] = useState<Repo[]>([]);
     const [arwBtnDisL, setArwBtnDisL] = useState(true);
     const [arwBtnDisR, setArwBtnDisR] = useState(false);
@@ -49,15 +49,16 @@ const Users = () => {
     }
 
     const btnChanger = (ind: number) => {
-        let btnArr = document.querySelectorAll('.repos-bottom-btn');
+        let btnArr = document.querySelectorAll('.' + style.repos_bottom_btn);
+        console.log(btnArr);
 
         if (ind === 6) {
             for (let i = 0; i < btnArr.length; i++) {
                 let element = btnArr[i];
-                if (element.classList.contains('repos-bottom-btn--active')) {
-                    element.classList.remove('repos-bottom-btn--active');
+                if (element.classList.contains(style.repos_bottom_btn_active)) {
+                    element.classList.remove(style.repos_bottom_btn_active);
                     console.log(btnArr[i - 1].classList);
-                    btnArr[i - 1].classList.add('repos-bottom-btn--active');
+                    btnArr[i - 1].classList.add(style.repos_bottom_btn_active);
                     checkBtn(i - 1);
                     setCurrentPage(currentPage - 1);
                     break;
@@ -67,9 +68,9 @@ const Users = () => {
         } else if (ind === 7) {
             for (let i = 0; i < btnArr.length; i++) {
                 let element = btnArr[i];
-                if (element.classList.contains('repos-bottom-btn--active')) {
-                    element.classList.remove('repos-bottom-btn--active');
-                    btnArr[i + 1].classList.add('repos-bottom-btn--active');
+                if (element.classList.contains(style.repos_bottom_btn_active)) {
+                    element.classList.remove(style.repos_bottom_btn_active);
+                    btnArr[i + 1].classList.add(style.repos_bottom_btn_active);
                     checkBtn(i + 1);
                     setCurrentPage(currentPage + 1);
                     break;
@@ -80,31 +81,31 @@ const Users = () => {
         else {
             for (let i = 0; i < btnArr.length; i++) {
                 const element = btnArr[i];
-                if (element.classList.contains('repos-bottom-btn--active')) {
-                    element.classList.remove('repos-bottom-btn--active');
+                if (element.classList.contains(style.repos_bottom_btn_active)) {
+                    element.classList.remove(style.repos_bottom_btn_active);
                     checkBtn(ind - 1);
                     setCurrentPage(ind - 1)
                     break;
                 }
             }
-            btnArr[ind - 1].classList.add('repos-bottom-btn--active');
+            btnArr[ind - 1].classList.add(style.repos_bottom_btn_active);
         }
     }
 
     return (
         <>
-            <ul className='repos'>
+            <ul className={style.repos}>
                 {repos
                     .slice(currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage : currentPage * reposPerPage, currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage + lastPageCount : currentPage * reposPerPage + reposPerPage)
                     .map((repo: Repo) => (
-                        <li key={repo.id}><Card id={repo.id} className={'repos__card'} image={repo.avatarUrl} captionSlot={repo.stargazers_count} dateSlot={repo.updatedAt} title={repo.name} contentSlot={repo.description} /></li>
+                        <li key={repo.id}><Card id={repo.id} className={style.repo_card__link} image={repo.avatarUrl} captionSlot={repo.stargazers_count} dateSlot={repo.updatedAt} title={repo.name} contentSlot={repo.description} /></li>
                     ))}
 
             </ul>
 
-            <div className="repos-bottom-btns">
+            <div className={style.repos_bottom_btns}>
                 <ArrowButton side='left' disabled={arwBtnDisL} onClick={() => btnChanger(6)}></ArrowButton>
-                <ul className='repos-bottom-btns__btns-list'>
+                <ul className={style.repos_bottom_btns__btns_list}>
                     <BottomBtns amount={btnsCount} onClick={(index: number) => btnChanger(index)}></BottomBtns>
                 </ul>
                 <ArrowButton side='right' disabled={arwBtnDisR} onClick={() => btnChanger(7)}></ArrowButton>

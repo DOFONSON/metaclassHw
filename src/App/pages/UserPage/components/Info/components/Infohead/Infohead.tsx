@@ -1,13 +1,13 @@
 import ArrowButton from "../../../../../../../components/ArrowButton"
 import { Link } from "react-router-dom"
 import { InfoProps } from "../../Info"
-
+import style from './styles/Infohead.module.scss'
 const Infohead: React.FC<InfoProps> = ({ compURL, compName }) => {
     return (
-        <div className="repo__infohead">
+        <div className={style.repo__infohead}>
             <Link to={'/'}><ArrowButton side="left" onClick={() => { }} color={'#1F883D'}></ArrowButton></Link>
-            <img src={compURL} alt="company img" className="infohead__img" />
-            <h2 className="infohead__title">{compName}</h2>
+            <img src={compURL} alt="company img" className={style.infohead__img} />
+            <h2 className={style.infohead__title}>{compName}</h2>
         </div>
     )
 }

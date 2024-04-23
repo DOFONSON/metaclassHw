@@ -1,5 +1,4 @@
 import axios from "axios";
-
 export const GITHUB_TOKEN = '';
 
 type Data = {
@@ -37,19 +36,24 @@ export type Repo = {
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const fetchRepos = async () => {
+const axiosGetData = async (url: string, token: string) => {
+    return axios.get(url, {
+        headers: {
+            Authorization: `token ${token}`
+        }
+    });
+}
+
+
+export const fetchRepos = async (organisation = 'ktsstudio') => {
+    console.log(organisation);
+
     try {
-        const result = await axios.get('https://api.github.com/orgs/ktsstudio/repos', {
-            headers: {
-                Authorization: `token ${GITHUB_TOKEN}`
-            }
-        });
+        const result = await axiosGetData(`https://api.github.com/orgs/${organisation}/repos`, GITHUB_TOKEN);
         const repos = await Promise.all(result.data.map(async (raw: Data) => {
             const dateUpdate = new Date(Date.parse(raw.updated_at));
 
             const newUpdate = dateUpdate.getDay() + ' ' + months[dateUpdate.getMonth()];
-
-
 
             return {
                 id: raw.id,
@@ -57,7 +61,7 @@ const fetchRepos = async () => {
                 description: raw.description,
                 avatarUrl: raw.owner.avatar_url,
                 name: raw.name,
-                updated_at: newUpdate,
+                updatedAt: newUpdate,
                 company_login: raw.owner.login,
                 topics: raw.topics,
                 watchers: raw.watchers,

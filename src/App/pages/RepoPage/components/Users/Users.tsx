@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import Card from '../Card';
 import BottomBtns from './components/BottomBtns/BottomBtns';
 import ArrowButton from '../../../../../components/ArrowButton';
-import { FETCHED_DATA, Repo } from '../../../../../config/routes';
+import { FETCHED_DATA, Repo, fetchRepos } from '../../../../../config/routes';
 import style from './styles/Users.module.scss'
-
-
+import { data } from '../../../../../config/search';
+import { observer } from 'mobx-react-lite';
+import repoStore from '../../../../../store/RenderReposStore';
 const Users: React.FC = () => {
     const [repos, setRepos] = useState<Repo[]>([]);
     const [arwBtnDisL, setArwBtnDisL] = useState(true);
@@ -17,10 +18,15 @@ const Users: React.FC = () => {
     const totalPages = Math.ceil(repos.length / reposPerPage);
     const lastPageCount = repos.length % reposPerPage === 0 ? reposPerPage : repos.length % reposPerPage;
 
-
     useEffect(() => {
-        setRepos(FETCHED_DATA)
+        const fetchData = async () => {
+            await repoStore.fetchRepos('ktsstudio');
+        };
+        fetchData();
     }, []);
+    useEffect(() => {
+        setRepos(repoStore.repos.length != 0 ? repoStore.repos : FETCHED_DATA)
+    }, [repoStore.repos]);
 
     useEffect(() => {
         const newBtnsCount = Math.ceil(repos.length / 9);
@@ -114,4 +120,4 @@ const Users: React.FC = () => {
     );
 }
 
-export default Users;
+export default observer(Users);

@@ -1,6 +1,6 @@
 import Header from '../../../components/Header';
 import Search from './components/Search';
-import Users from './components/Users'
+import Users from './components/Users/Users'
 import React from 'react'
 import style from './styles/RepoPage.module.scss'
 const RepoPage = () => {

@@ -10,7 +10,7 @@ const Infomain: React.FC<InfoProps> = ({ repName, topics, stars, watchers, forks
             <RepoInfo repName={repName} topics={topics} stars={stars} watchers={watchers} forks={forks}></RepoInfo>
             <div className={style.optional_info}>
                 <Contributors contributors={contributors}></Contributors>
-                {languages && <Languages languages={languages} />}
+                {typeof languages == typeof {} && <Languages languages={languages} />}
             </div>
         </div>
     )

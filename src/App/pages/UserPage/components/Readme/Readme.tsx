@@ -4,7 +4,9 @@ interface ReadmeProps {
     data: string | undefined
 }
 const Readme: React.FC<ReadmeProps> = ({ data }) => {
-
+    if (data == undefined) {
+        return
+    }
     let text = data?.replace(/\n/g, '<br>');
 
     let ftext = text?.split('*') || []

@@ -4,14 +4,19 @@ import Button from "../../../../../components/Button/Button"
 import { Option } from "../../../../../components/MultiDropdown/MultiDropdown"
 import SearchIcon from "../../../../../components/Button/SearchIconBtn"
 import styles from './styles/styles.module.scss'
-import { observable } from 'mobx';
 import repoStore from '../../../../../store/RenderReposStore/';
-
+import React from 'react'
 const Search: React.FC = () => {
     const handleSearch = async () => {
-        await repoStore.fetchRepos(document.getElementById('searchInput')?.value);
-        console.log(repoStore);
+        const searchInput = document.getElementById('searchInput') as HTMLInputElement | null;
+        if (searchInput) {
+            await repoStore.fetchRepos(searchInput.value);
+            console.log(repoStore);
+        }
     };
+
+    const [value, setValue] = React.useState<Option[]>([]);
+
 
     return (
         <div className="search__main">
@@ -22,8 +27,8 @@ const Search: React.FC = () => {
                     { key: 'spb', value: 'Санкт-Петербург' },
                     { key: 'ekb', value: 'Екатеринбург' }
                 ]}
-                value={[{ key: 'msk', value: 'Москва' }]}
-                onChange={() => ({ key, value }: Option) => console.log('Выбрано:', key, value)}
+                value={value}
+                onChange={setValue}
                 getTitle={(values: Option[]) => values.length === 0 ? 'Выберите город' : `Выбрано: ${values.length}`}
             ></MultiDropdown>
             <div className={styles.input_search_block}>
@@ -34,4 +39,4 @@ const Search: React.FC = () => {
     );
 }
 
-export default observable(Search);
+export default Search;

@@ -1,7 +1,7 @@
 import axios from "axios";
 export const GITHUB_TOKEN = '';
 
-type Data = {
+export type Data = {
     id?: string;
     stargazers_count?: number;
     description?: string;
@@ -20,6 +20,9 @@ type Data = {
 
 export type Repo = {
     id: number;
+    owner?: {
+        login?: string
+    }
     stargazers_count: number;
     description: string;
     avatarUrl: 'string';
@@ -29,8 +32,8 @@ export type Repo = {
     topics: string[];
     watchers: number;
     forks: number;
-    contributors: {}[];
-    languagesResult: object;
+    contributors: string;
+    languagesResult: string;
     readme: string | undefined;
 };
 
@@ -45,7 +48,7 @@ const axiosGetData = async (url: string, token: string) => {
 }
 
 
-export const fetchRepos = async (organisation = 'ktsstudio') => {
+export const fetchRepos = async (organisation: string) => {
     console.log(organisation);
 
     try {
@@ -78,4 +81,4 @@ export const fetchRepos = async (organisation = 'ktsstudio') => {
     }
 };
 
-export const FETCHED_DATA = await fetchRepos();
+export default fetchRepos;

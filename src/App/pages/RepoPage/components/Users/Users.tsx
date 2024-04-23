@@ -2,36 +2,31 @@ import { useState, useEffect } from 'react';
 import Card from '../Card';
 import BottomBtns from './components/BottomBtns/BottomBtns';
 import ArrowButton from '../../../../../components/ArrowButton';
-import { FETCHED_DATA, Repo, fetchRepos } from '../../../../../config/routes';
+import { Repo } from '../../../../../config/routes';
 import style from './styles/Users.module.scss'
-import { data } from '../../../../../config/search';
 import { observer } from 'mobx-react-lite';
 import repoStore from '../../../../../store/RenderReposStore';
 const Users: React.FC = () => {
-    const [repos, setRepos] = useState<Repo[]>([]);
     const [arwBtnDisL, setArwBtnDisL] = useState(true);
     const [arwBtnDisR, setArwBtnDisR] = useState(false);
     const [btnsCount, setBtnsCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const reposPerPage = 9;
 
-    const totalPages = Math.ceil(repos.length / reposPerPage);
-    const lastPageCount = repos.length % reposPerPage === 0 ? reposPerPage : repos.length % reposPerPage;
+    const totalPages = Math.ceil(repoStore.repos.length / reposPerPage);
+    const lastPageCount = repoStore.repos.length % reposPerPage === 0 ? reposPerPage : repoStore.repos.length % reposPerPage;
 
     useEffect(() => {
-        const fetchData = async () => {
-            await repoStore.fetchRepos('ktsstudio');
-        };
-        fetchData();
+        repoStore
     }, []);
     useEffect(() => {
-        setRepos(repoStore.repos.length != 0 ? repoStore.repos : FETCHED_DATA)
+        repoStore.repos
     }, [repoStore.repos]);
 
     useEffect(() => {
-        const newBtnsCount = Math.ceil(repos.length / 9);
+        const newBtnsCount = Math.ceil(repoStore.repos.length / 9);
         setBtnsCount(newBtnsCount);
-    }, [repos]);
+    }, [repoStore.repos]);
 
     useEffect(() => {
         checkBtn(0);
@@ -101,7 +96,7 @@ const Users: React.FC = () => {
     return (
         <>
             <ul className={style.repos}>
-                {repos
+                {repoStore.repos
                     .slice(currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage : currentPage * reposPerPage, currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage + lastPageCount : currentPage * reposPerPage + reposPerPage)
                     .map((repo: Repo) => (
                         <li key={repo.id}><Card id={repo.id} className={style.repo_card__link} image={repo.avatarUrl} captionSlot={repo.stargazers_count} dateSlot={repo.updatedAt} title={repo.name} contentSlot={repo.description} /></li>

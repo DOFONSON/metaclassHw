@@ -18,7 +18,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             },
             [onChange]
         )
-
         return (
             <label className={className === 'search__input_input' ? 'srchinp_label' : ''}>
                 <input

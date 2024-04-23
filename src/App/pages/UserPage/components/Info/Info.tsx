@@ -1,6 +1,5 @@
 import Infohead from "./components/Infohead"
 import Infomain from "./components/Infomain";
-import style from './styles/Info.module.scss'
 export type InfoProps = {
     compURL?: string;
     compName?: string
@@ -9,7 +8,7 @@ export type InfoProps = {
     stars?: number
     watchers?: number
     forks?: number
-    contributors?: {}[]
+    contributors?: {}[] | string
     languages?: any
 }
 const Info: React.FC<InfoProps> = ({ compURL, compName, repName, topics, stars, watchers, forks, contributors, languages }) => {

@@ -3,11 +3,17 @@
     border: none;
     width: 369px;
     font-size: 16px;
-}
-
-.super_input:focus {
-    outline: none;
     border: 1px solid var(--brand);
+    box-sizing: border-box;
+    height: auto;
+
+    &:focus {
+        height: 52.4px;
+        width: 367px;
+        box-sizing: border-box;
+        outline: none;
+        border: 2px solid var(--brand-hover);
+    }
 }
 
 .super_input_block {
@@ -29,16 +35,13 @@
     min-width: 1154px;
 }
 
+.multi__options ul {
+    background-color: var(--btn-active-text);
+    margin-top: 8px;
+    border-radius: 8px;
+    max-width: 393px;
+}
 
-.multi__options {
-    ul {
-        background-color: var(--btn-active-text);
-        margin-top: 8px;
-        border-radius: 8px;
-        max-width: 393px;
-
-        li {
-            padding: 14px 12px;
-        }
-    }
+.multi__options ul li {
+    padding: 14px 12px;
 }

@@ -18,7 +18,6 @@ type Data = {
     contributors_url: string;
     languages_url: string;
 };
-
 export type Repo = {
     id: number;
     stargazers_count: number;

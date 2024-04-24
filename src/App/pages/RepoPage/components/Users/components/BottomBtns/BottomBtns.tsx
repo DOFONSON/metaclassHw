@@ -1,6 +1,5 @@
 import style from '../../styles/Users.module.scss'
 import cn from 'clsx'
-
 type BtnProps = {
     amount: number,
     onClick: Function

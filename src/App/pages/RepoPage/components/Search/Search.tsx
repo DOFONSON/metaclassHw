@@ -11,7 +11,6 @@ const Search: React.FC = () => {
         const searchInput = document.getElementById('searchInput') as HTMLInputElement | null;
         if (searchInput) {
             await repoStore.fetchRepos(searchInput.value);
-            console.log(repoStore);
         }
     };
 

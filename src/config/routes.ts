@@ -53,6 +53,8 @@ export const fetchRepos = async (organisation: string) => {
 
     try {
         const result = await axiosGetData(`https://api.github.com/orgs/${organisation}/repos`, GITHUB_TOKEN);
+        console.log(result);
+
         const repos = await Promise.all(result.data.map(async (raw: Data) => {
             const dateUpdate = new Date(Date.parse(raw.updated_at));
 
@@ -80,5 +82,31 @@ export const fetchRepos = async (organisation: string) => {
         return [];
     }
 };
+export const getOptionalData = async (contributors: string, languages: string, login: string, name: string, repo: Repo) => {
+    try {
 
+        const contributorsResult = await axiosGetData(contributors, GITHUB_TOKEN)
+
+        const languagesResult = await axiosGetData(languages, GITHUB_TOKEN)
+
+        let readmeContent: string | undefined = undefined;
+        try {
+            const readmeResult = await axiosGetData(`https://api.github.com/repos/${login}/${name}/readme`, GITHUB_TOKEN)
+            readmeContent = decodeURIComponent(escape(atob(readmeResult.data.content)));
+        } catch (error) {
+            console.error('Error while fetching:', error);
+        }
+
+        const contributorsData = contributorsResult.data;
+
+        repo.contributors = contributorsData;
+        repo.readme = readmeContent;
+        repo.languagesResult = languagesResult.data;
+
+        return repo
+
+    } catch (error) {
+        console.error('Error while fetching data:', error);
+    }
+}
 export default fetchRepos;

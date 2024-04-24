@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Card from '../Card';
 import BottomBtns from './components/BottomBtns/BottomBtns';
 import ArrowButton from '../../../../../components/ArrowButton';
-import { Repo } from '../../../../../config/routes';
 import style from './styles/Users.module.scss'
 import { observer } from 'mobx-react-lite';
 import repoStore from '../../../../../store/RenderReposStore';
@@ -10,23 +9,24 @@ const Users: React.FC = () => {
     const [arwBtnDisL, setArwBtnDisL] = useState(true);
     const [arwBtnDisR, setArwBtnDisR] = useState(false);
     const [btnsCount, setBtnsCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const reposPerPage = 9;
 
-    const totalPages = Math.ceil(repoStore.repos.length / reposPerPage);
-    const lastPageCount = repoStore.repos.length % reposPerPage === 0 ? reposPerPage : repoStore.repos.length % reposPerPage;
+    const totalPages = Math.ceil(repoStore.repos.order.length / reposPerPage);
 
     useEffect(() => {
         repoStore
+
     }, []);
     useEffect(() => {
         repoStore.repos
-    }, [repoStore.repos]);
+
+    }, [repoStore.meta]);
 
     useEffect(() => {
-        const newBtnsCount = Math.ceil(repoStore.repos.length / 9);
+        const newBtnsCount = Math.ceil(repoStore.repos.order.length / 9);
         setBtnsCount(newBtnsCount);
-    }, [repoStore.repos]);
+    }, [repoStore.meta]);
 
     useEffect(() => {
         checkBtn(0);
@@ -48,69 +48,77 @@ const Users: React.FC = () => {
             setArwBtnDisR(false);
         }
     }
+    let btnArr = document.querySelectorAll('.' + style.repos_bottom_btn);
 
     const btnChanger = (ind: number) => {
-        let btnArr = document.querySelectorAll('.' + style.repos_bottom_btn);
-        console.log(btnArr);
-
-        if (ind === 6) {
-            for (let i = 0; i < btnArr.length; i++) {
-                let element = btnArr[i];
-                if (element.classList.contains(style.repos_bottom_btn_active)) {
-                    element.classList.remove(style.repos_bottom_btn_active);
-                    console.log(btnArr[i - 1].classList);
-                    btnArr[i - 1].classList.add(style.repos_bottom_btn_active);
-                    checkBtn(i - 1);
-                    setCurrentPage(currentPage - 1);
-                    break;
-                }
+        for (let i = 0; i < btnArr.length; i++) {
+            const element = btnArr[i];
+            if (element.classList.contains(style.repos_bottom_btn_active)) {
+                element.classList.remove(style.repos_bottom_btn_active);
+                checkBtn(ind - 1);
+                setCurrentPage(ind - 1)
+                break;
             }
-
-        } else if (ind === 7) {
-            for (let i = 0; i < btnArr.length; i++) {
-                let element = btnArr[i];
-                if (element.classList.contains(style.repos_bottom_btn_active)) {
-                    element.classList.remove(style.repos_bottom_btn_active);
-                    btnArr[i + 1].classList.add(style.repos_bottom_btn_active);
-                    checkBtn(i + 1);
-                    setCurrentPage(currentPage + 1);
-                    break;
-                }
-            }
-
         }
-        else {
-            for (let i = 0; i < btnArr.length; i++) {
-                const element = btnArr[i];
-                if (element.classList.contains(style.repos_bottom_btn_active)) {
-                    element.classList.remove(style.repos_bottom_btn_active);
-                    checkBtn(ind - 1);
-                    setCurrentPage(ind - 1)
-                    break;
-                }
-            }
-            btnArr[ind - 1].classList.add(style.repos_bottom_btn_active);
-        }
+        btnArr[ind - 1].classList.add(style.repos_bottom_btn_active);
     }
+    useEffect(() => {
+        setArwBtnDisL(currentPage === 0);
+        setArwBtnDisR(currentPage === totalPages - 1);
+    }, [currentPage, totalPages]);
+
+    const nextPage = () => {
+        setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+        btnArr[currentPage].classList.remove(style.repos_bottom_btn_active);
+        btnArr[currentPage + 1].classList.add(style.repos_bottom_btn_active);
+    };
+
+    const prevPage = () => {
+        setCurrentPage((prev) => Math.max(prev - 1, 0));
+        btnArr[currentPage].classList.remove(style.repos_bottom_btn_active);
+        btnArr[currentPage - 1].classList.add(style.repos_bottom_btn_active);
+    };
 
     return (
         <>
-            <ul className={style.repos}>
-                {repoStore.repos
-                    .slice(currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage : currentPage * reposPerPage, currentPage === totalPages - 1 ? (currentPage - 1) * reposPerPage + lastPageCount : currentPage * reposPerPage + reposPerPage)
-                    .map((repo: Repo) => (
-                        <li key={repo.id}><Card id={repo.id} className={style.repo_card__link} image={repo.avatarUrl} captionSlot={repo.stargazers_count} dateSlot={repo.updatedAt} title={repo.name} contentSlot={repo.description} /></li>
-                    ))}
+            {repoStore.meta == 'success' ? (
+                <div>
+                    <ul className={style.repos}>
+                        {repoStore.repos.order
+                            .slice(currentPage * reposPerPage, (currentPage + 1) * reposPerPage)
+                            .map((repo: number) => (
+                                <li key={repoStore.repos.entities[repo].id}><Card id={repoStore.repos.entities[repo].id} className={style.repo_card__link} image={repoStore.repos.entities[repo].avatarUrl} captionSlot={repoStore.repos.entities[repo].stargazers_count} dateSlot={repoStore.repos.entities[repo].updatedAt} title={repoStore.repos.entities[repo].name} contentSlot={repoStore.repos.entities[repo].description} /></li>
+                            ))}
+                    </ul>
 
-            </ul>
-
-            <div className={style.repos_bottom_btns}>
-                <ArrowButton side='left' disabled={arwBtnDisL} onClick={() => btnChanger(6)}></ArrowButton>
-                <ul className={style.repos_bottom_btns__btns_list}>
-                    <BottomBtns amount={btnsCount} onClick={(index: number) => btnChanger(index)}></BottomBtns>
-                </ul>
-                <ArrowButton side='right' disabled={arwBtnDisR} onClick={() => btnChanger(7)}></ArrowButton>
-            </div >
+                    <div className={style.repos_bottom_btns}>
+                        <ArrowButton side='left' disabled={arwBtnDisL} onClick={prevPage}></ArrowButton>
+                        <ul className={style.repos_bottom_btns__btns_list}>
+                            <BottomBtns amount={btnsCount} onClick={(index: number) => btnChanger(index)}></BottomBtns>
+                        </ul>
+                        <ArrowButton side='right' disabled={arwBtnDisR} onClick={nextPage}></ArrowButton>
+                    </div>
+                </div>
+            ) : repoStore.meta == 'initial' ?
+                (<div className={style.stub}>
+                    <h2 className={style.stub__title}>Select a company to view its repositories</h2>
+                </div>) : repoStore.meta == 'loading' ?
+                    (<div className="loading_stub">
+                        <div className={style.box}>
+                            <div className={style.cat}>
+                                <div className={style.body}></div>
+                                <div className={style.tail}></div>
+                                <div className={style.head}></div>
+                            </div>
+                        </div>
+                    </div>
+                    ) :
+                    (
+                        <div className={style.error_stub}>
+                            <h2>Sorry... Can't find company with that title</h2>
+                        </div>
+                    )
+            }
         </>
     );
 }

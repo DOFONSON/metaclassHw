@@ -12,21 +12,21 @@ const Users: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const reposPerPage = 9;
 
-    const totalPages = Math.ceil(repoStore.repos.order.length / reposPerPage);
+    let totalPages = Math.ceil(repoStore.renderedRepos.order.length / reposPerPage);
 
     useEffect(() => {
         repoStore
 
     }, []);
     useEffect(() => {
-        repoStore.repos
+        repoStore.renderedRepos
 
-    }, [repoStore.meta]);
+    }, [repoStore.meta, totalPages]);
 
     useEffect(() => {
-        const newBtnsCount = Math.ceil(repoStore.repos.order.length / 9);
+        const newBtnsCount = Math.ceil(repoStore.renderedRepos.order.length / 9);
         setBtnsCount(newBtnsCount);
-    }, [repoStore.meta]);
+    }, [repoStore.meta, repoStore.renderedRepos.order.length]);
 
     useEffect(() => {
         checkBtn(0);
@@ -84,10 +84,10 @@ const Users: React.FC = () => {
             {repoStore.meta == 'success' ? (
                 <div>
                     <ul className={style.repos}>
-                        {repoStore.repos.order
+                        {repoStore.renderedRepos.order
                             .slice(currentPage * reposPerPage, (currentPage + 1) * reposPerPage)
                             .map((repo: number) => (
-                                <li key={repoStore.repos.entities[repo].id}><Card id={repoStore.repos.entities[repo].id} className={style.repo_card__link} image={repoStore.repos.entities[repo].avatarUrl} captionSlot={repoStore.repos.entities[repo].stargazers_count} dateSlot={repoStore.repos.entities[repo].updatedAt} title={repoStore.repos.entities[repo].name} contentSlot={repoStore.repos.entities[repo].description} /></li>
+                                <li key={repoStore.renderedRepos.entities[repo].id}><Card id={repoStore.renderedRepos.entities[repo].id} className={style.repo_card__link} image={repoStore.renderedRepos.entities[repo].avatarUrl} captionSlot={repoStore.renderedRepos.entities[repo].stargazers_count} dateSlot={repoStore.renderedRepos.entities[repo].updatedAt} title={repoStore.renderedRepos.entities[repo].name} contentSlot={repoStore.renderedRepos.entities[repo].description} /></li>
                             ))}
                     </ul>
 

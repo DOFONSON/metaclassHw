@@ -39,14 +39,13 @@ export type Repo = {
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const axiosGetData = async (url: string, token: string) => {
+export const axiosGetData = async (url: string, token: string) => {
     return axios.get(url, {
         headers: {
             Authorization: `token ${token}`
         }
     });
 }
-
 
 export const fetchRepos = async (organisation: string) => {
     console.log(organisation);
@@ -59,7 +58,6 @@ export const fetchRepos = async (organisation: string) => {
             const dateUpdate = new Date(Date.parse(raw.updated_at));
 
             const newUpdate = dateUpdate.getDay() + ' ' + months[dateUpdate.getMonth()];
-
             return {
                 id: raw.id,
                 stargazers_count: raw.stargazers_count || 0,

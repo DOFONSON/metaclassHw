@@ -1,8 +1,10 @@
 import React from 'react';
 import Input from '../Input/Input';
 import style from './styles/MultiDropdown.module.scss'
+import MultiStore from '../../store/MultiStore';
+import ReposStore from '../../store/RenderReposStore';
 import cn from 'clsx'
-
+import { toJS } from 'mobx';
 export type Option = {
     key: string;
     value: string;
@@ -77,9 +79,13 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
 
             if (selectedKeysSet.has(option.key)) {
                 onChange([...value].filter(({ key }) => key !== option.key))
+                MultiStore.selectedTags = [...value].filter(({ key }) => key !== option.key)
+                ReposStore.filterRepos(MultiStore.selectedTags)
             } else {
-                console.log(selectedKeysSet);
                 onChange([...value, option])
+                MultiStore.selectedTags = [...value, option]
+                console.log(toJS(MultiStore.selectedTags));
+                ReposStore.filterRepos(MultiStore.selectedTags)
             }
             ref.current?.focus()
         },

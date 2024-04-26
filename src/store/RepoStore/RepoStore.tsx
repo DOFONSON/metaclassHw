@@ -1,15 +1,30 @@
-// import { Repo } from "../../config/routes";
-// import { getOptionalData } from "../../config/routes";
+import { observable, makeObservable, action } from "mobx";
+import { Repo } from "../../config/routes";
+import { getOptionalData } from "../../config/routes";
+import { Meta } from '../../shared/meta';
+class CardStore {
+    repo: Repo | undefined = undefined
+    meta: Meta = Meta.Initial
+    constructor() {
+        makeObservable(this, {
+            repo: observable.ref,
+            meta: observable,
+            setRepo: action
+        });
+    }
+    setRepo = async (value: Repo) => {
+        if (value) {
+            this.meta = Meta.Loading
+            this.repo = value;
+            this.repo = await getOptionalData(this.repo.contributors, this.repo.languagesResult, this.repo.company_login, this.repo.name, this.repo)
 
-// class RepoStore {
-//     repo: Repo = {}
-//     constructor() {
-//         makeObservable(this, {
-//             repos: observable.ref,
-//             searchQuery: observable,
-//             fetchRepos: action,
-//         });
-//     }
-// }
+        } else {
+            console.error("Invalid repo object or missing contributors property");
+        }
+    }
 
-// export default RepoStore
+
+}
+const RepoStore = new CardStore();
+
+export default RepoStore

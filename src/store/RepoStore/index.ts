@@ -1,1 +1,1 @@
-// export { default } from './RepoStore'
+export { default } from './RepoStore'

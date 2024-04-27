@@ -84,8 +84,9 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
             } else {
                 onChange([...value, option])
                 MultiStore.selectedTags = [...value, option]
-                console.log(toJS(MultiStore.selectedTags));
                 ReposStore.filterRepos(MultiStore.selectedTags)
+                console.log(toJS(ReposStore.renderedRepos));
+
             }
             ref.current?.focus()
         },

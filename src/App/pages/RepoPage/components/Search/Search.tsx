@@ -8,7 +8,6 @@ import repoStore from '../../../../../store/RenderReposStore/';
 import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite';
 import MultiStore from "../../../../../store/MultiStore"
-import { toJS } from "mobx"
 
 
 
@@ -23,7 +22,6 @@ const Search: React.FC = observer(() => {
     const [value, setValue] = React.useState<Option[]>([]);
 
     useEffect(() => {
-        console.log(toJS(MultiStore.tags));
         setValue([])
     }, [MultiStore.tags])
 

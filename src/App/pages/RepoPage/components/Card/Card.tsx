@@ -17,7 +17,6 @@ export type CardProps = {
     dateSlot?: string
     id: number
 };
-console.log(styles.cardIcon);
 
 const Card: React.FC<CardProps> = ({ image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot, dateSlot, id }) => {
     return (

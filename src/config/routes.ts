@@ -1,5 +1,5 @@
 import axios from "axios";
-export const GITHUB_TOKEN = '';
+export const GITHUB_TOKEN = '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';
 
 export type Data = {
     id?: string;
@@ -48,11 +48,9 @@ export const axiosGetData = async (url: string, token: string) => {
 }
 
 export const fetchRepos = async (organisation: string) => {
-    console.log(organisation);
 
     try {
         const result = await axiosGetData(`https://api.github.com/orgs/${organisation}/repos`, GITHUB_TOKEN);
-        console.log(result);
 
         const repos = await Promise.all(result.data.map(async (raw: Data) => {
             const dateUpdate = new Date(Date.parse(raw.updated_at));

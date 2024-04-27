@@ -2,16 +2,17 @@ import style from '../../styles/Users.module.scss'
 import cn from 'clsx'
 type BtnProps = {
     amount: number,
-    onClick: Function
+    onClick: Function,
+    startIndex?: number
 }
 
-const BottomBtns: React.FC<BtnProps> = ({ amount, onClick }) => {
+const BottomBtns: React.FC<BtnProps> = ({ amount, onClick, startIndex }) => {
     let arr = []
     for (let i = 0; i < amount; i++) {
         let id = amount - i
         arr.push(
             {
-                val: <button className={cn(style.repos_bottom_btn, i == 0 ? style.repos_bottom_btn_active : '')} onClick={() => onClick(i + 1)}>{i + 1}</button>,
+                val: <button className={cn(style.repos_bottom_btn, i == startIndex ? style.repos_bottom_btn_active : '')} onClick={() => onClick(i + 1)}>{i + 1}</button>,
                 id: id
             }
         )
@@ -26,3 +27,4 @@ const BottomBtns: React.FC<BtnProps> = ({ amount, onClick }) => {
 }
 
 export default BottomBtns
+

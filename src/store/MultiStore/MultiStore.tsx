@@ -24,8 +24,6 @@ class MultiStore {
             const element: any = data[i];
             for (const top of element.topics) {
                 const existingTag = this.tags.find(tag => tag.value === top);
-                console.log(existingTag);
-
                 if (!existingTag) {
                     temp.push({ key: top + Math.random(), value: top });
                 }

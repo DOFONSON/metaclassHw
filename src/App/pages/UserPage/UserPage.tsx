@@ -6,22 +6,45 @@ import Readme from './components/Readme';
 import style from './styles/UserPage.module.scss'
 import reposStore from '../../../store/RenderReposStore/RenderReposStore';
 import RepoStore from '../../../store/RepoStore/RepoStore';
-import { toJS } from 'mobx';
+import ReposStore from '../../../store/RenderReposStore/RenderReposStore';
 
 const UserPage = () => {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     if (id == undefined) return
-    const repo = reposStore.repos.entities[+id];
+    let repo = reposStore.repos.entities[+id];
     const [loading, setLoading] = useState(true);
 
-    console.log(toJS(repo));
-
     useEffect(() => {
+        const getRepos = async () => {
+            if (repo) {
+                console.log(111);
+                let comp = new URL(window.location.href)
+                comp.searchParams.set('comp', repo.company_login.toString())
+                window.history.pushState({ path: comp.href }, '', comp.href);
+                console.log(reposStore.repos.entities[+id]);
+            } else {
+                let comp = new URL(window.location.href)
+                if (comp.searchParams.get('comp')) {
+                    await ReposStore.fetchRepos(comp.searchParams.get('comp') || '')
+                    repo = reposStore.repos.entities[+id];
+                    const fetchData = async () => {
+                        if (repo) {
+                            await RepoStore.setRepo(repo);
+                            setLoading(false);
+                        }
+                    }
+
+                    fetchData();
+                }
+            }
+        }
+        getRepos()
+    }, [])
+    useEffect(() => {
+
         const fetchData = async () => {
             if (repo) {
                 await RepoStore.setRepo(repo);
-                console.log(toJS(RepoStore.repo?.languagesResult));
-
                 setLoading(false);
             }
         }

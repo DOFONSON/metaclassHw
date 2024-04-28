@@ -3,7 +3,6 @@ import './App.css'
 import RepoPage from './pages/RepoPage'
 import UserPage from './pages/UserPage'
 import { Routes, Route } from 'react-router-dom';
-
 const App = () => {
   useQueryParamStoreInit()
   return (

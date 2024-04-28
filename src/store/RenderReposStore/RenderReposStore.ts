@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, IReactionDisposer, reaction } from 'mobx';
+import { makeObservable, observable, action, IReactionDisposer, reaction, toJS } from 'mobx';
 import rootStore from '../RootStore/RootStore';
 import { fetchRepos } from "../../config/routes";
 import { Repo } from "../../config/routes";
@@ -18,11 +18,13 @@ class RenderReposStore {
     searchQuery: string = '';
     meta: Meta = Meta.Initial;
     page: number = 0
+    url = new URL(window.location.href);
     constructor() {
         makeObservable(this, {
             page: observable,
             repos: observable,
             meta: observable,
+            url: observable,
             renderedRepos: observable,
             searchQuery: observable,
             fetchRepos: action,
@@ -32,18 +34,14 @@ class RenderReposStore {
     }
 
 
-
-
     changePage = (ind: number) => {
         this.page = ind
-        const url = new URL(window.location.href);
-        url.searchParams.set('page', this.page.toString())
-        window.history.pushState({ path: url.href }, '', url.href);
-        console.log(this.page);
-
+        this.url = new URL(window.location.href);
+        this.url.searchParams.set('page', this.page.toString())
+        window.history.pushState({ path: this.url.href }, '', this.url.href);
     }
 
-    async fetchRepos(query: string) {
+    async fetchRepos(query: string, state = false) {
 
         this.searchQuery = query;
         MultiStore.deleteTags();
@@ -66,12 +64,13 @@ class RenderReposStore {
         this.renderedRepos = this.repos;
 
         this.meta = Meta.Success;
-
-        const url = new URL(window.location.href);
-        url.searchParams.set('search', query);
-        url.searchParams.set('page', this.page.toString())
-        window.history.pushState({ path: url.href }, '', url.href);
-
+        if (!state) {
+            this.url = new URL(window.location.href);
+            this.url.searchParams.set('search', query);
+            this.url.searchParams.set('page', this.page.toString())
+            window.history.pushState({ path: this.url.href }, '', this.url.href);
+        }
+        console.log(toJS(this.renderedRepos));
     }
 
     filterRepos(options: any[]) {
@@ -109,7 +108,6 @@ class RenderReposStore {
     _qpReaction: IReactionDisposer = reaction(
         () => rootStore.query.getParam('search'),
         (search) => {
-            console.log(search);
             if (typeof search == 'string') {
                 this.fetchRepos(search)
             }

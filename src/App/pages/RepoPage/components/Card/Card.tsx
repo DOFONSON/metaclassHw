@@ -14,8 +14,9 @@ export type CardProps = {
     contentSlot?: React.ReactNode;
     onClick?: React.MouseEventHandler;
     actionSlot?: React.ReactNode;
-    dateSlot?: string
-    id: number
+    dateSlot?: string;
+    id: number;
+    company?: string
 };
 
 const Card: React.FC<CardProps> = ({ image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot, dateSlot, id }) => {

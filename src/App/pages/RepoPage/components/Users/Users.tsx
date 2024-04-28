@@ -12,9 +12,7 @@ const Users: React.FC = () => {
     const [btnsCount, setBtnsCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(repoStore.page);
     const reposPerPage = 9;
-
     let totalPages = Math.ceil(repoStore.renderedRepos.order.length / reposPerPage);
-    console.log(ReposStore.page);
 
     useEffect(() => {
         repoStore
@@ -22,7 +20,6 @@ const Users: React.FC = () => {
     }, []);
     useEffect(() => {
         repoStore.renderedRepos
-
     }, [repoStore.meta, totalPages]);
 
     useEffect(() => {

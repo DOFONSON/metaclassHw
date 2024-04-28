@@ -23,7 +23,6 @@ class CardStore {
         }
     }
 
-
 }
 const RepoStore = new CardStore();
 

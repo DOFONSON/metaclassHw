@@ -1,9 +1,8 @@
 import ArrowButton from "../../../../../../../components/ArrowButton"
 import { Link } from "react-router-dom"
 import { InfoProps } from "../../Info"
-import style from './styles/Infohead.module.scss'
+import style from './Infohead.module.scss'
 const Infohead: React.FC<InfoProps> = ({ compURL, compName, headURL }) => {
-    console.log(headURL);
 
     return (
         <div className={style.repo__infohead}>

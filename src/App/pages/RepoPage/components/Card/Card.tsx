@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'clsx'
 import Text from "../Text";
 import Star from '../../../../../components/Star'
-import styles from './styles/styles.module.scss'
+import styles from './styles.module.scss'
 
 import { Link } from 'react-router-dom';
 export type CardProps = {

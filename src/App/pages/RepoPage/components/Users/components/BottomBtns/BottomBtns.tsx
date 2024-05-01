@@ -1,4 +1,4 @@
-import style from '../../styles/Users.module.scss'
+import style from './BottomBtns.module.scss'
 import cn from 'clsx'
 type BtnProps = {
     amount: number,

@@ -1,4 +1,4 @@
-import style from './styles/Languages.module.scss';
+import style from './Languages.module.scss';
 
 type LanguagesProps = {
     languages: {
@@ -7,10 +7,9 @@ type LanguagesProps = {
 };
 
 const Languages: React.FC<LanguagesProps> = ({ languages }) => {
-    console.log(languages);
 
     if (typeof languages != typeof {}) {
-        return null; // Возвращаем null вместо undefined
+        return null;
     }
 
     let total = 0;
@@ -46,10 +45,8 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
         Groovy: '#4298B8'
     };
 
-    // Объект для хранения рандомных цветов
     const randomColors: { [key: string]: string } = {};
 
-    // Функция для генерации рандомного цвета
     const getRandomColor = () => {
         const letters = '0123456789ABCDEF';
         let color = '#';
@@ -59,7 +56,6 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
         return color;
     };
 
-    // Функция для получения цвета языка программирования
     const getColor = (language: string) => {
         if (colors[language]) {
             return colors[language];
@@ -85,10 +81,9 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
                 <div className={style.language__progress}>
                     {Object.keys(percentage).map((language) => (
                         <span
+                            className={style.language__progress_span}
                             key={language}
                             style={{
-                                display: 'block',
-                                height: '10px',
                                 backgroundColor: getColor(language),
                                 flexBasis: 2.73 * percentage[language] + 'px'
                             }}
@@ -102,10 +97,6 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
                                 className={style.language__list_item_circle}
                                 style={{
                                     backgroundColor: getColor(language),
-                                    width: '8px',
-                                    height: '8px',
-                                    borderRadius: '100%',
-                                    display: 'block'
                                 }}
                             ></span>
                             {language}: <span className={style.list_item_percentage}>{percentage[language]}%</span>

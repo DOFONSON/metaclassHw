@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, IReactionDisposer, reaction, toJS } from 'mobx';
+import { makeObservable, observable, action, IReactionDisposer, reaction } from 'mobx';
 import rootStore from '../RootStore/RootStore';
 import { fetchRepos } from "../../config/routes";
 import { Repo } from "../../config/routes";
@@ -33,6 +33,12 @@ class RenderReposStore {
         });
     }
 
+    handleSearch = async () => {
+        const searchInput = document.getElementById('searchInput') as HTMLInputElement | null;
+        if (searchInput) {
+            await this.fetchRepos(searchInput.value);
+        }
+    };
 
     changePage = (ind: number) => {
         this.page = ind
@@ -70,7 +76,6 @@ class RenderReposStore {
             this.url.searchParams.set('page', this.page.toString())
             window.history.pushState({ path: this.url.href }, '', this.url.href);
         }
-        console.log(toJS(this.renderedRepos));
     }
 
     filterRepos(options: any[]) {
@@ -101,7 +106,6 @@ class RenderReposStore {
             if (typeof page == 'string') {
                 this.changePage(+page)
                 console.log(this.page);
-
             }
         }
     )
@@ -115,5 +119,5 @@ class RenderReposStore {
     )
 }
 
-const ReposStore = new RenderReposStore();
-export default ReposStore;
+const renderReposStore = new RenderReposStore();
+export default renderReposStore;

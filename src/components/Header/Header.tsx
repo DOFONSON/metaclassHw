@@ -1,6 +1,6 @@
 import LogoTitle from "./components/LogoTitle"
 import UserIcon from "./components/UserIcon"
-import style from './styles/header.module.scss'
+import style from './header.module.scss'
 const Header = () => {
     return (
         <header className={style.header}>

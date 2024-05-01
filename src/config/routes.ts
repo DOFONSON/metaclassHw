@@ -23,12 +23,12 @@ export type Repo = {
     owner?: {
         login?: string
     }
-    stargazers_count: number;
+    stargazersCount: number;
     description: string;
     avatarUrl: 'string';
     updatedAt: string;
     name: string;
-    company_login: string;
+    companyLogin: string;
     topics: string[];
     watchers: number;
     forks: number;
@@ -58,12 +58,12 @@ export const fetchRepos = async (organisation: string) => {
             const newUpdate = dateUpdate.getDay() + ' ' + months[dateUpdate.getMonth()];
             return {
                 id: raw.id,
-                stargazers_count: raw.stargazers_count || 0,
+                stargazersCount: raw.stargazers_count || 0,
                 description: raw.description,
                 avatarUrl: raw.owner.avatar_url,
                 name: raw.name,
                 updatedAt: newUpdate,
-                company_login: raw.owner.login,
+                companyLogin: raw.owner.login,
                 topics: raw.topics,
                 watchers: raw.watchers,
                 forks: raw.forks_count,

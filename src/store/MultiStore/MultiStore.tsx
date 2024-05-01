@@ -1,13 +1,13 @@
 import { makeObservable, observable, action } from 'mobx';
 import { Option } from '../../components/MultiDropdown/MultiDropdown';
 
-class MultiStore {
+export class MultiStore {
 
     tags: Option[] = []
     selectedTags: Option[] = []
     constructor() {
         makeObservable(this, {
-            tags: observable,
+            tags: observable.ref,
             updateTags: action,
             deleteTags: action
         });

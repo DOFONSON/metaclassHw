@@ -1,4 +1,4 @@
-import style from './styles/Readme.module.scss'
+import style from './Readme.module.scss'
 
 interface ReadmeProps {
     data: string | undefined

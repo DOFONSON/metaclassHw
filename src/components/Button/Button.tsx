@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './styles/styles.module.scss'
+import style from './styles.module.scss'
 import cn from 'clsx'
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     loading?: boolean;

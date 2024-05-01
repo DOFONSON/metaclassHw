@@ -1,6 +1,9 @@
 import { InfoProps } from "../../../../Info"
-import style from './styles/Contributors.module.scss'
+import style from './Contributors.module.scss'
 const Contributors: React.FC<InfoProps> = ({ contributors }) => {
+    if (!Array.isArray(contributors)) {
+        return null;
+    }
     return (
         <div className={style.contributors}>
             <div className={style.contributors__title}>

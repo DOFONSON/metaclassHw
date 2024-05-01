@@ -23,6 +23,10 @@
     position: absolute;
     top: 4px;
     left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    display: 'block';
 }
 
 .list_item_percentage {
@@ -36,9 +40,11 @@
     overflow: hidden;
     width: 273px;
     height: 100%;
+}
 
-
-
+.language__progress_span {
+    display: block;
+    height: 10px;
 }
 
 span {

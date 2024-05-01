@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react';
 import Card from '../Card';
 import BottomBtns from './components/BottomBtns/BottomBtns';
 import ArrowButton from '../../../../../components/ArrowButton';
-import style from './styles/Users.module.scss'
+import style from './Users.module.scss'
+import btnStyle from './components/BottomBtns/BottomBtns.module.scss'
 import { observer } from 'mobx-react-lite';
 import repoStore from '../../../../../store/RenderReposStore';
 import ReposStore from '../../../../../store/RenderReposStore/RenderReposStore';
+import LoadingStub from './components/LoadingStub';
+import DefaultStub from './components/DefaultStub';
+import ErrorStub from './components/ErrorStub';
 const Users: React.FC = () => {
     const [arwBtnDisL, setArwBtnDisL] = useState(true);
     const [arwBtnDisR, setArwBtnDisR] = useState(false);
@@ -48,17 +52,16 @@ const Users: React.FC = () => {
             setArwBtnDisR(false);
         }
     }
-    let btnArr = document.querySelectorAll('.' + style.repos_bottom_btn);
+    let btnArr = document.querySelectorAll('.' + btnStyle.repos_bottom_btn);
 
     const btnChanger = (ind: number) => {
 
-        let btnArr = document.querySelectorAll('.' + style.repos_bottom_btn);
-        console.log(btnArr);
+        let btnArr = document.querySelectorAll('.' + btnStyle.repos_bottom_btn);
 
         for (let i = 0; i < btnArr.length; i++) {
             const element = btnArr[i];
-            if (element.classList.contains(style.repos_bottom_btn_active)) {
-                element.classList.remove(style.repos_bottom_btn_active);
+            if (element.classList.contains(btnStyle.repos_bottom_btn_active)) {
+                element.classList.remove(btnStyle.repos_bottom_btn_active);
                 repoStore.changePage(ind - 1)
 
                 checkBtn(ind - 1);
@@ -66,7 +69,7 @@ const Users: React.FC = () => {
                 break;
             }
         }
-        btnArr[ind - 1].classList.add(style.repos_bottom_btn_active);
+        btnArr[ind - 1].classList.add(btnStyle.repos_bottom_btn_active);
     }
     useEffect(() => {
         setArwBtnDisL(currentPage === 0);
@@ -76,15 +79,15 @@ const Users: React.FC = () => {
     const nextPage = () => {
         repoStore.changePage(Math.min(repoStore.page + 1, totalPages - 1))
         setCurrentPage(repoStore.page);
-        btnArr[currentPage].classList.remove(style.repos_bottom_btn_active);
-        btnArr[currentPage + 1].classList.add(style.repos_bottom_btn_active);
+        btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);
+        btnArr[currentPage + 1].classList.add(btnStyle.repos_bottom_btn_active);
     };
 
     const prevPage = () => {
         repoStore.changePage(Math.max(repoStore.page - 1, 0))
         setCurrentPage(repoStore.page);
-        btnArr[currentPage].classList.remove(style.repos_bottom_btn_active);
-        btnArr[currentPage - 1].classList.add(style.repos_bottom_btn_active);
+        btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);
+        btnArr[currentPage - 1].classList.add(btnStyle.repos_bottom_btn_active);
     };
 
     return (
@@ -95,7 +98,7 @@ const Users: React.FC = () => {
                         {repoStore.renderedRepos.order
                             .slice(currentPage * reposPerPage, (currentPage + 1) * reposPerPage)
                             .map((repo: number) => (
-                                <li key={repoStore.renderedRepos.entities[repo].id}><Card id={repoStore.renderedRepos.entities[repo].id} className={style.repo_card__link} image={repoStore.renderedRepos.entities[repo].avatarUrl} captionSlot={repoStore.renderedRepos.entities[repo].stargazers_count} dateSlot={repoStore.renderedRepos.entities[repo].updatedAt} title={repoStore.renderedRepos.entities[repo].name} contentSlot={repoStore.renderedRepos.entities[repo].description} /></li>
+                                <li key={repoStore.renderedRepos.entities[repo].id}><Card id={repoStore.renderedRepos.entities[repo].id} className={style.repo_card__link} image={repoStore.renderedRepos.entities[repo].avatarUrl} captionSlot={repoStore.renderedRepos.entities[repo].stargazersCount} dateSlot={repoStore.renderedRepos.entities[repo].updatedAt} title={repoStore.renderedRepos.entities[repo].name} contentSlot={repoStore.renderedRepos.entities[repo].description} /></li>
                             ))}
                     </ul>
 
@@ -107,25 +110,7 @@ const Users: React.FC = () => {
                         <ArrowButton side='right' disabled={arwBtnDisR} onClick={nextPage}></ArrowButton>
                     </div>
                 </div >
-            ) : repoStore.meta == 'initial' ?
-                (<div className={style.stub}>
-                    <h2 className={style.stub__title}>Select a company to view its repositories</h2>
-                </div>) : repoStore.meta == 'loading' ?
-                    (<div className="loading_stub">
-                        <div className={style.box}>
-                            <div className={style.cat}>
-                                <div className={style.body}></div>
-                                <div className={style.tail}></div>
-                                <div className={style.head}></div>
-                            </div>
-                        </div>
-                    </div>
-                    ) :
-                    (
-                        <div className={style.error_stub}>
-                            <h2>Sorry... Can't find company with that title</h2>
-                        </div>
-                    )
+            ) : repoStore.meta == 'initial' ? <DefaultStub /> : repoStore.meta == 'loading' ? <LoadingStub /> : <ErrorStub />
             }
         </>
     );

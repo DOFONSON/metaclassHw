@@ -2,7 +2,7 @@ import { observable, makeObservable, action } from "mobx";
 import { Repo } from "../../config/routes";
 import { getOptionalData } from "../../config/routes";
 import { Meta } from '../../shared/meta';
-class CardStore {
+export class SingleRepoStore {
     repo: Repo | undefined = undefined
     meta: Meta = Meta.Initial
     constructor() {
@@ -16,7 +16,7 @@ class CardStore {
         if (value) {
             this.meta = Meta.Loading
             this.repo = value;
-            this.repo = await getOptionalData(this.repo.contributors, this.repo.languagesResult, this.repo.company_login, this.repo.name, this.repo)
+            this.repo = await getOptionalData(this.repo.contributors, this.repo.languagesResult, this.repo.companyLogin, this.repo.name, this.repo)
 
         } else {
             console.error("Invalid repo object or missing contributors property");
@@ -24,6 +24,6 @@ class CardStore {
     }
 
 }
-const RepoStore = new CardStore();
+const RepoStore = new SingleRepoStore();
 
 export default RepoStore

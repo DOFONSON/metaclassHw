@@ -1,5 +1,5 @@
 import Logo from './img/GitHubLogo.svg'
-import style from './style/LogoTitle.module.scss'
+import style from './LogoTitle.module.scss'
 const LogoTitle = () => {
     return (
         <div className={style.header__logo_title}>

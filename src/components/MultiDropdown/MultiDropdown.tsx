@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../Input/Input';
-import style from './styles/MultiDropdown.module.scss'
+import style from './MultiDropdown.module.scss'
 import MultiStore from '../../store/MultiStore';
 import ReposStore from '../../store/RenderReposStore';
 import cn from 'clsx'

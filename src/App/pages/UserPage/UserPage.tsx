@@ -3,7 +3,7 @@ import Header from "../../../components/Header";
 import Info from "./components/Info";
 import { useParams } from 'react-router-dom';
 import Readme from './components/Readme';
-import style from './styles/UserPage.module.scss'
+import style from './UserPage.module.scss'
 import reposStore from '../../../store/RenderReposStore/RenderReposStore';
 import RepoStore from '../../../store/RepoStore/RepoStore';
 import ReposStore from '../../../store/RenderReposStore/RenderReposStore';
@@ -19,7 +19,7 @@ const UserPage = () => {
             if (repo) {
                 console.log(111);
                 let comp = new URL(window.location.href)
-                comp.searchParams.set('comp', repo.company_login.toString())
+                comp.searchParams.set('comp', repo.companyLogin.toString())
                 window.history.pushState({ path: comp.href }, '', comp.href);
                 console.log(reposStore.repos.entities[+id]);
             } else {
@@ -60,11 +60,11 @@ const UserPage = () => {
                 {!loading && RepoStore.repo && (
                     <>
                         <Info
-                            compName={RepoStore.repo.company_login}
+                            compName={RepoStore.repo.companyLogin}
                             compURL={RepoStore.repo.avatarUrl}
                             repName={RepoStore.repo.name}
                             topics={RepoStore.repo.topics}
-                            stars={RepoStore.repo.stargazers_count}
+                            stars={RepoStore.repo.stargazersCount}
                             watchers={RepoStore.repo.watchers}
                             forks={RepoStore.repo.forks}
                             contributors={RepoStore.repo.contributors}

@@ -2,7 +2,7 @@ import RepoInfo from "./components/RepoInfo"
 import Contributors from "./components/Contributors/Contributors"
 import Languages from "./components/Languages/Languages"
 import { InfoProps } from "../../Info"
-import style from './styles/Infomain.module.scss'
+import style from './Infomain.module.scss'
 const Infomain: React.FC<InfoProps> = ({ repName, topics, stars, watchers, forks, contributors, languages }) => {
 
     return (
@@ -10,7 +10,7 @@ const Infomain: React.FC<InfoProps> = ({ repName, topics, stars, watchers, forks
             <RepoInfo repName={repName} topics={topics} stars={stars} watchers={watchers} forks={forks}></RepoInfo>
             <div className={style.optional_info}>
                 <Contributors contributors={contributors}></Contributors>
-                {typeof languages == typeof {} && <Languages languages={languages} />}
+                {languages && <Languages languages={languages} />}
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import React from "react"
 import Arrow from "./Arrow"
 import cn from 'clsx'
-import style from './styles/ArrowButton.module.scss'
+import style from './ArrowButton.module.scss'
 type ArrowButtonProps = {
     side: string;
     disabled?: boolean;

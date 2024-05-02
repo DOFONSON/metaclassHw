@@ -25,6 +25,5 @@ export default class QueryParamsStore {
             this._search = search
             this._params = qs.parse(search)
         }
-        console.log(this._search);
     }
 }

@@ -6,7 +6,7 @@ import { CollectionModel, getInitialCollectionModel } from '../../shared/collect
 import { Meta } from '../../shared/meta';
 import MultiStore from '../MultiStore/MultiStore';
 
-class RenderReposStore {
+export class RenderReposStore {
     repos: CollectionModel<number, Repo> = {
         order: [],
         entities: {}
@@ -102,10 +102,8 @@ class RenderReposStore {
     _qpPage: IReactionDisposer = reaction(
         () => rootStore.query.getParam('page'),
         (page) => {
-            console.log(page);
             if (typeof page == 'string') {
                 this.changePage(+page)
-                console.log(this.page);
             }
         }
     )

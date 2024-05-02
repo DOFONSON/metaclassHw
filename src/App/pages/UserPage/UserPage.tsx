@@ -7,7 +7,7 @@ import style from './UserPage.module.scss'
 import reposStore from '../../../store/RenderReposStore/RenderReposStore';
 import RepoStore from '../../../store/RepoStore/RepoStore';
 import ReposStore from '../../../store/RenderReposStore/RenderReposStore';
-
+import Loading from './components/Stub/Loading';
 const UserPage = () => {
     const { id } = useParams<{ id: string }>();
     if (id == undefined) return
@@ -17,11 +17,9 @@ const UserPage = () => {
     useEffect(() => {
         const getRepos = async () => {
             if (repo) {
-                console.log(111);
                 let comp = new URL(window.location.href)
                 comp.searchParams.set('comp', repo.companyLogin.toString())
                 window.history.pushState({ path: comp.href }, '', comp.href);
-                console.log(reposStore.repos.entities[+id]);
             } else {
                 let comp = new URL(window.location.href)
                 if (comp.searchParams.get('comp')) {
@@ -56,7 +54,7 @@ const UserPage = () => {
         <>
             <Header />
             <main className={style.main__user_page}>
-                {loading && <p>Loading...</p>}
+                {loading && <Loading />}
                 {!loading && RepoStore.repo && (
                     <>
                         <Info

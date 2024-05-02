@@ -5,8 +5,7 @@ import ArrowButton from '../../../../../components/ArrowButton';
 import style from './Users.module.scss'
 import btnStyle from './components/BottomBtns/BottomBtns.module.scss'
 import { observer } from 'mobx-react-lite';
-import repoStore from '../../../../../store/RenderReposStore';
-import ReposStore from '../../../../../store/RenderReposStore/RenderReposStore';
+import ReposStore from '../../../../../store/RenderReposStore';
 import LoadingStub from './components/LoadingStub';
 import DefaultStub from './components/DefaultStub';
 import ErrorStub from './components/ErrorStub';
@@ -14,23 +13,23 @@ const Users: React.FC = () => {
     const [arwBtnDisL, setArwBtnDisL] = useState(true);
     const [arwBtnDisR, setArwBtnDisR] = useState(false);
     const [btnsCount, setBtnsCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(repoStore.page);
+    const [currentPage, setCurrentPage] = useState(ReposStore.page);
     const reposPerPage = 9;
-    let totalPages = Math.ceil(repoStore.renderedRepos.order.length / reposPerPage);
+    let totalPages = Math.ceil(ReposStore.renderedRepos.order.length / reposPerPage);
 
     useEffect(() => {
-        repoStore
+        ReposStore
 
     }, []);
     useEffect(() => {
-        repoStore.renderedRepos
-    }, [repoStore.meta, totalPages]);
+        ReposStore.renderedRepos
+    }, [ReposStore.meta, totalPages]);
 
     useEffect(() => {
-        const newBtnsCount = Math.ceil(repoStore.renderedRepos.order.length / reposPerPage);
+        const newBtnsCount = Math.ceil(ReposStore.renderedRepos.order.length / reposPerPage);
         setBtnsCount(newBtnsCount);
         setCurrentPage(ReposStore.page)
-    }, [repoStore.meta, repoStore.renderedRepos.order.length]);
+    }, [ReposStore.meta, ReposStore.renderedRepos.order.length]);
 
     useEffect(() => {
         checkBtn(ReposStore.page + 1);
@@ -62,10 +61,10 @@ const Users: React.FC = () => {
             const element = btnArr[i];
             if (element.classList.contains(btnStyle.repos_bottom_btn_active)) {
                 element.classList.remove(btnStyle.repos_bottom_btn_active);
-                repoStore.changePage(ind - 1)
+                ReposStore.changePage(ind - 1)
 
                 checkBtn(ind - 1);
-                setCurrentPage(repoStore.page)
+                setCurrentPage(ReposStore.page)
                 break;
             }
         }
@@ -77,28 +76,28 @@ const Users: React.FC = () => {
     }, [currentPage, totalPages]);
 
     const nextPage = () => {
-        repoStore.changePage(Math.min(repoStore.page + 1, totalPages - 1))
-        setCurrentPage(repoStore.page);
+        ReposStore.changePage(Math.min(ReposStore.page + 1, totalPages - 1))
+        setCurrentPage(ReposStore.page);
         btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);
         btnArr[currentPage + 1].classList.add(btnStyle.repos_bottom_btn_active);
     };
 
     const prevPage = () => {
-        repoStore.changePage(Math.max(repoStore.page - 1, 0))
-        setCurrentPage(repoStore.page);
+        ReposStore.changePage(Math.max(ReposStore.page - 1, 0))
+        setCurrentPage(ReposStore.page);
         btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);
         btnArr[currentPage - 1].classList.add(btnStyle.repos_bottom_btn_active);
     };
 
     return (
         <>
-            {repoStore.meta == 'success' ? (
+            {ReposStore.meta == 'success' ? (
                 <div>
                     <ul className={style.repos}>
-                        {repoStore.renderedRepos.order
+                        {ReposStore.renderedRepos.order
                             .slice(currentPage * reposPerPage, (currentPage + 1) * reposPerPage)
                             .map((repo: number) => (
-                                <li key={repoStore.renderedRepos.entities[repo].id}><Card id={repoStore.renderedRepos.entities[repo].id} className={style.repo_card__link} image={repoStore.renderedRepos.entities[repo].avatarUrl} captionSlot={repoStore.renderedRepos.entities[repo].stargazersCount} dateSlot={repoStore.renderedRepos.entities[repo].updatedAt} title={repoStore.renderedRepos.entities[repo].name} contentSlot={repoStore.renderedRepos.entities[repo].description} /></li>
+                                <li key={ReposStore.renderedRepos.entities[repo].id}><Card id={ReposStore.renderedRepos.entities[repo].id} className={style.repo_card__link} image={ReposStore.renderedRepos.entities[repo].avatarUrl} captionSlot={ReposStore.renderedRepos.entities[repo].stargazersCount} dateSlot={ReposStore.renderedRepos.entities[repo].updatedAt} title={ReposStore.renderedRepos.entities[repo].name} contentSlot={ReposStore.renderedRepos.entities[repo].description} /></li>
                             ))}
                     </ul>
 
@@ -110,7 +109,7 @@ const Users: React.FC = () => {
                         <ArrowButton side='right' disabled={arwBtnDisR} onClick={nextPage}></ArrowButton>
                     </div>
                 </div >
-            ) : repoStore.meta == 'initial' ? <DefaultStub /> : repoStore.meta == 'loading' ? <LoadingStub /> : <ErrorStub />
+            ) : ReposStore.meta == 'initial' ? <DefaultStub /> : ReposStore.meta == 'loading' ? <LoadingStub /> : <ErrorStub />
             }
         </>
     );

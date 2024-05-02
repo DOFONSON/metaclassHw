@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import style from './Languages.module.scss';
 
 type LanguagesProps = {
@@ -70,10 +71,14 @@ const Languages: React.FC<LanguagesProps> = ({ languages }) => {
     for (const key in languages) {
         total += languages[key];
     }
-    let percentage: any = {};
-    for (const key in languages) {
-        percentage[key] = Math.round((languages[key] / total) * 1000) / 10;
-    }
+    const percentage = useMemo(() => {
+        let newPercentage: any = {};
+        for (const key in languages) {
+            newPercentage[key] = Math.round((languages[key] / total) * 1000) / 10;
+        }
+        return newPercentage;
+    }, [languages, total]);
+
 
     return (
         <div className={style.language}>

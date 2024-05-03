@@ -1,7 +1,6 @@
 import Infohead from "./components/Infohead"
 import Infomain from "./components/Infomain";
-import ReposStore from "../../../../../store/RenderReposStore";
-import { URL } from "url";
+import rootStore from "../../../../../store/RootStore/RootStore/instanse";
 export type InfoProps = {
     compURL?: string;
     headURL?: URL
@@ -15,7 +14,9 @@ export type InfoProps = {
     languages?: any
 }
 const Info: React.FC<InfoProps> = ({ compURL, compName, repName, topics, stars, watchers, forks, contributors, languages }) => {
-    let url = ReposStore.url;
+    let url = rootStore.URL;
+    console.log(url.search);
+
     return (
         <>
             <Infohead compURL={compURL} compName={compName} headURL={url}></Infohead>

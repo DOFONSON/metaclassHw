@@ -5,8 +5,6 @@ import * as qs from 'qs'
 export default class QueryParamsStore {
     private _params: qs.ParsedQs = {}
     private _search: string = ''
-
-
     constructor() {
         makeObservable<QueryParamsStore, PrivateFields>(this, {
             _params: observable.ref,

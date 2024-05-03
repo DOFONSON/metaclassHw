@@ -5,11 +5,16 @@ import ArrowButton from '../../../../../components/ArrowButton';
 import style from './Users.module.scss'
 import btnStyle from './components/BottomBtns/BottomBtns.module.scss'
 import { observer } from 'mobx-react-lite';
-import ReposStore from '../../../../../store/RenderReposStore';
 import LoadingStub from './components/LoadingStub';
 import DefaultStub from './components/DefaultStub';
 import ErrorStub from './components/ErrorStub';
-const Users: React.FC = () => {
+import { RenderReposStore } from '../../../../../store/RenderReposStore/RenderReposStore';
+
+interface UsersProps {
+    ReposStore: RenderReposStore;
+}
+
+const Users: React.FC<UsersProps> = ({ ReposStore }) => {
     const [arwBtnDisL, setArwBtnDisL] = useState(true);
     const [arwBtnDisR, setArwBtnDisR] = useState(false);
     const [btnsCount, setBtnsCount] = useState(0);
@@ -17,10 +22,6 @@ const Users: React.FC = () => {
     const reposPerPage = 9;
     let totalPages = Math.ceil(ReposStore.renderedRepos.order.length / reposPerPage);
 
-    useEffect(() => {
-        ReposStore
-
-    }, []);
     useEffect(() => {
         ReposStore.renderedRepos
     }, [ReposStore.meta, totalPages]);
@@ -51,7 +52,6 @@ const Users: React.FC = () => {
             setArwBtnDisR(false);
         }
     }
-    let btnArr = document.querySelectorAll('.' + btnStyle.repos_bottom_btn);
 
     const btnChanger = (ind: number) => {
 
@@ -76,13 +76,18 @@ const Users: React.FC = () => {
     }, [currentPage, totalPages]);
 
     const nextPage = () => {
+        let btnArr = document.querySelectorAll('.' + btnStyle.repos_bottom_btn);
+
         ReposStore.changePage(Math.min(ReposStore.page + 1, totalPages - 1))
         setCurrentPage(ReposStore.page);
+
         btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);
         btnArr[currentPage + 1].classList.add(btnStyle.repos_bottom_btn_active);
     };
 
     const prevPage = () => {
+        let btnArr = document.querySelectorAll('.' + btnStyle.repos_bottom_btn);
+
         ReposStore.changePage(Math.max(ReposStore.page - 1, 0))
         setCurrentPage(ReposStore.page);
         btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);

@@ -5,29 +5,34 @@ import { useParams } from 'react-router-dom';
 import Readme from './components/Readme';
 import style from './UserPage.module.scss'
 import reposStore from '../../../store/RenderReposStore/RenderReposStore';
-import RepoStore from '../../../store/RepoStore/RepoStore';
+import { SingleRepoStore } from '../../../store/RepoStore/RepoStore';
 import ReposStore from '../../../store/RenderReposStore/RenderReposStore';
 import Loading from './components/Stub/Loading';
+import rootStore from '../../../store/RootStore/RootStore/instanse';
+import { useLocalObservable } from 'mobx-react-lite';
 const UserPage = () => {
+
+    const singleRepoStore = useLocalObservable(() => new SingleRepoStore())
+
     const { id } = useParams<{ id: string }>();
     if (id == undefined) return
-    let repo = reposStore.repos.entities[+id];
+    let repo = rootStore.repos.entities[+id];
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getRepos = async () => {
             if (repo) {
                 let comp = new URL(window.location.href)
-                comp.searchParams.set('comp', repo.companyLogin.toString())
+                comp.searchParams.set('search', repo.companyLogin.toString())
                 window.history.pushState({ path: comp.href }, '', comp.href);
             } else {
                 let comp = new URL(window.location.href)
-                if (comp.searchParams.get('comp')) {
-                    await ReposStore.fetchRepos(comp.searchParams.get('comp') || '')
+                if (comp.searchParams.get('search')) {
+                    await ReposStore.fetchRepos(comp.searchParams.get('search') || '')
                     repo = reposStore.repos.entities[+id];
                     const fetchData = async () => {
                         if (repo) {
-                            await RepoStore.setRepo(repo);
+                            await singleRepoStore.setRepo(repo);
                             setLoading(false);
                         }
                     }
@@ -42,7 +47,7 @@ const UserPage = () => {
 
         const fetchData = async () => {
             if (repo) {
-                await RepoStore.setRepo(repo);
+                await singleRepoStore.setRepo(repo);
                 setLoading(false);
             }
         }
@@ -55,20 +60,20 @@ const UserPage = () => {
             <Header />
             <main className={style.main__user_page}>
                 {loading && <Loading />}
-                {!loading && RepoStore.repo && (
+                {!loading && singleRepoStore.repo && (
                     <>
                         <Info
-                            compName={RepoStore.repo.companyLogin}
-                            compURL={RepoStore.repo.avatarUrl}
-                            repName={RepoStore.repo.name}
-                            topics={RepoStore.repo.topics}
-                            stars={RepoStore.repo.stargazersCount}
-                            watchers={RepoStore.repo.watchers}
-                            forks={RepoStore.repo.forks}
-                            contributors={RepoStore.repo.contributors}
-                            languages={RepoStore.repo.languagesResult}
+                            compName={singleRepoStore.repo.companyLogin}
+                            compURL={singleRepoStore.repo.avatarUrl}
+                            repName={singleRepoStore.repo.name}
+                            topics={singleRepoStore.repo.topics}
+                            stars={singleRepoStore.repo.stargazersCount}
+                            watchers={singleRepoStore.repo.watchers}
+                            forks={singleRepoStore.repo.forks}
+                            contributors={singleRepoStore.repo.contributors}
+                            languages={singleRepoStore.repo.languagesResult}
                         />
-                        {RepoStore.repo?.readme && <Readme data={RepoStore.repo?.readme} />}
+                        {singleRepoStore.repo?.readme && <Readme data={singleRepoStore.repo?.readme} />}
                     </>
                 )}
             </main>

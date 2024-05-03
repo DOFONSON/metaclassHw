@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Input from '../Input/Input';
-import style from './MultiDropdown.module.scss'
-import MultiStore from '../../store/MultiStore';
-import ReposStore from '../../store/RenderReposStore';
-import cn from 'clsx'
-import { toJS } from 'mobx';
+import style from './MultiDropdown.module.scss';
+import { observer } from 'mobx-react-lite';
+import cn from 'clsx';
+
 export type Option = {
     key: string;
     value: string;
@@ -17,88 +16,74 @@ export type MultiDropdownProps = {
     onChange: (value: Option[]) => void;
     disabled?: boolean;
     getTitle: (value: Option[]) => string;
-
+    multiStore: any;
+    renderReposStore: any;
 };
 
-const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value, onChange, disabled, getTitle }) => {
+const MultiDropdown: React.FC<MultiDropdownProps> = observer(({ className, options, value, onChange, disabled, getTitle, multiStore, renderReposStore }) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLInputElement>(null);
+    const [filter, setFilter] = useState('');
+    const [isOpened, setIsOpened] = useState(false);
+    useEffect(() => {
+    }, [multiStore.tags])
 
-    const wrapperRef = React.useRef<HTMLDivElement>(null)
-    const ref = React.useRef<HTMLInputElement>(null)
-    const [filter, setFilter] = React.useState('')
-    const [isOpened, setIsOpened] = React.useState(false)
-
-    const open = () => {
-        setIsOpened(true)
-    }
-
-    React.useEffect(() => {
+    useEffect(() => {
         const handlerClick = (e: MouseEvent) => {
             if (!wrapperRef.current?.contains(e.target as HTMLElement)) {
-                setIsOpened(false)
+                setIsOpened(false);
             }
-        }
+        };
 
-        window.addEventListener('click', handlerClick)
+        window.addEventListener('click', handlerClick);
 
         return () => {
-            window.removeEventListener('click', handlerClick)
-        }
-    }, [])
+            window.removeEventListener('click', handlerClick);
+        };
+    }, []);
 
-
-    React.useEffect(() => {
+    useEffect(() => {
         if (isOpened) {
-            setFilter('')
+            setFilter('');
         }
-    }, [isOpened])
+    }, [isOpened]);
+
+    const title = getTitle(value);
+    const isEmpty = value.length === 0;
+
+    const filteredOptions = options.filter(o => o.value.toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) === 0);
+
+    const selectedKeysSet = new Set(value.map(({ key }) => key));
+
+    const onSelect = (option: Option) => {
+        if (disabled) {
+            return;
+        }
+
+        const updatedValue = selectedKeysSet.has(option.key)
+            ? value.filter(({ key }) => key !== option.key)
+            : [...value, option];
 
 
-    const title = React.useMemo(() => getTitle(value), [getTitle, value])
+        onChange(updatedValue);
+        multiStore.selectedTags = updatedValue;
+        renderReposStore.filterRepos(multiStore.selectedTags)
+        renderReposStore.changePage(0)
+        ref.current?.focus();
+    };
 
-    const isEmpty = value.length === 0
+    const open = () => {
+        setIsOpened(true);
+    };
 
-    const filteredOptions = React.useMemo(() => {
-        const str = filter.toLocaleLowerCase()
-        return options.filter(
-            (o) => o.value.toLocaleLowerCase().indexOf(str) === 0
-        )
-    }, [filter, options])
-
-    const selectedKeysSet = React.useMemo<Set<Option['key']>>(
-        () => new Set(value.map(({ key }) => {
-            return key
-        })),
-        [value]
-    )
-
-    const onSelect = React.useCallback(
-        (option: Option) => {
-            if (disabled) {
-                return
-            }
-
-            if (selectedKeysSet.has(option.key)) {
-                onChange([...value].filter(({ key }) => key !== option.key))
-                MultiStore.selectedTags = [...value].filter(({ key }) => key !== option.key)
-                ReposStore.filterRepos(MultiStore.selectedTags)
-            } else {
-                onChange([...value, option])
-                MultiStore.selectedTags = [...value, option]
-                ReposStore.filterRepos(MultiStore.selectedTags)
-                console.log(toJS(ReposStore.renderedRepos));
-
-            }
-            ref.current?.focus()
-        },
-        [disabled, onChange, value, selectedKeysSet]
-    )
-
-    const opened = isOpened && !disabled
+    const opened = isOpened && !disabled;
 
     return (
         <div className={cn(className, 'multi_drop')} ref={wrapperRef}>
-            <Input className='multi_drop_field'
-                onClick={open} disabled={disabled}
+            <Input
+                className="multi_drop_field"
+                onClick={open}
+                disabled={disabled}
                 placeholder={title}
                 value={opened ? filter : isEmpty ? '' : title}
                 onChange={setFilter}
@@ -106,16 +91,19 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
             />
             {opened && (
                 <div className={style.multi__options}>
-                    {filteredOptions.map((option) => (
+                    {filteredOptions.map(option => (
                         <button
-                            className={cn(style.multi_drop_option, selectedKeysSet.has(option.key) && style.multi_drop_option_selected)} key={option.key} onClick={() => onSelect(option)}>
+                            key={option.key}
+                            className={cn(style.multi_drop_option, selectedKeysSet.has(option.key) && style.multi_drop_option_selected)}
+                            onClick={() => onSelect(option)}
+                        >
                             {option.value}
                         </button>
                     ))}
                 </div>
             )}
         </div>
-    )
-};
+    );
+});
 
 export default MultiDropdown;

@@ -1,7 +1,8 @@
 import { useQueryParamStoreInit } from '../store/RootStore/hooks/useQueryParamStoreInit';
 import './App.css'
-import RepoPage from './pages/RepoPage'
-import UserPage from './pages/UserPage'
+import ReposPage from './pages/ReposPage'
+import SingleRepoPage from './pages/SingleRepoPage'
+import UserPage from './pages/UserPage';
 import { Routes, Route } from 'react-router-dom';
 import { RootStoreProvider } from '../store/RootStore/RootStore/RootStoreProvider';
 const App = () => {
@@ -9,10 +10,11 @@ const App = () => {
   return (
     <RootStoreProvider>
       <Routes>
-        <Route path='/' element={<RepoPage />}></Route>
+        <Route path='/' element={<ReposPage />}></Route>
         <Route path='/repo'>
-          <Route path=':id' element={<UserPage></UserPage>}></Route>
+          <Route path=':id' element={<SingleRepoPage />}></Route>
         </Route>
+        <Route path='/user' element={<UserPage />}></Route>
       </Routes>
     </RootStoreProvider>
   )

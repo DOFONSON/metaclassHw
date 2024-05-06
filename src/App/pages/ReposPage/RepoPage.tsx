@@ -1,4 +1,3 @@
-import Header from '../../../components/Header';
 import Search from './components/Search/Search';
 import Users from './components/Users/Users';
 import React from 'react';
@@ -8,11 +7,11 @@ import { RenderReposStore } from '../../../store/RenderReposStore/RenderReposSto
 import { MultiStoreProvider } from '../../../components/MultiDropdown/MultiStoreContext';
 import { MultiStore } from '../../../store/MultiStore/MultiStore';
 const RepoPage = () => {
+
     const renderReposStore = useLocalObservable(() => new RenderReposStore());
     const multiStore = useLocalObservable(() => new MultiStore())
     return (
         <React.Fragment>
-            <Header />
             <main className={style.page__main}>
                 <div className={style.wrapper}>
                     <h2 className={style.RepoPage__org_list_title}>List of organization repositories</h2>

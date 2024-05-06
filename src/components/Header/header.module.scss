@@ -3,4 +3,16 @@
     border-bottom: 2px solid var(--header-border);
     display: flex;
     justify-content: space-between;
+
+    .userLink {
+        text-decoration: none;
+        color: var(--brand-active);
+        transition: 0.3s;
+        &:hover {
+            color:  var(--brand-hover);
+        }
+        &:active {
+            color: var(--button-primary-bg);
+        }
+    }
 }

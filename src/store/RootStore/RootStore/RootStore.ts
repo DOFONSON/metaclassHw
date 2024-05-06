@@ -4,7 +4,8 @@ import { CollectionModel } from "../../../shared/collection";
 export default class RootStore {
 
     readonly query = new QueryParamsStore();
-
+    userImg = undefined
+    userName = undefined
     repos: CollectionModel<number, Repo> = {
         order: [],
         entities: {}

@@ -5,9 +5,16 @@ import SingleRepoPage from './pages/SingleRepoPage'
 import UserPage from './pages/UserPage';
 import { Routes, Route } from 'react-router-dom';
 import { RootStoreProvider } from '../store/RootStore/RootStore/RootStoreProvider';
+import { useLocalObservable } from 'mobx-react-lite';
+import { ClientProfileStore } from '../store/ClientProfileStore/ClientProfileStore';
+import Header from '../components/Header';
 const App = () => {
   useQueryParamStoreInit()
+  const cliStore = useLocalObservable(() => new ClientProfileStore());
+
   return (
+    <>
+    <Header cliStore={cliStore} />
     <RootStoreProvider>
       <Routes>
         <Route path='/' element={<ReposPage />}></Route>
@@ -17,6 +24,8 @@ const App = () => {
         <Route path='/user' element={<UserPage />}></Route>
       </Routes>
     </RootStoreProvider>
+    </>
+    
   )
 }
 

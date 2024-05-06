@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import { InfoProps } from "../../Info"
 import style from './Infohead.module.scss'
 const Infohead: React.FC<InfoProps> = ({ compURL, compName, headURL }) => {
-    console.log(headURL?.search);
 
     return (
         <div className={style.repo__infohead}>

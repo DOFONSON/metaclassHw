@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Header from "../../../components/Header";
 import Info from "./components/Info";
 import { useParams } from 'react-router-dom';
 import Readme from './components/Readme';
@@ -10,7 +9,7 @@ import ReposStore from '../../../store/RenderReposStore/RenderReposStore';
 import Loading from './components/Stub/Loading';
 import rootStore from '../../../store/RootStore/RootStore/instanse';
 import { useLocalObservable } from 'mobx-react-lite';
-const UserPage = () => {
+const SingleRepo = () => {
 
     const singleRepoStore = useLocalObservable(() => new SingleRepoStore())
 
@@ -57,7 +56,6 @@ const UserPage = () => {
 
     return (
         <>
-            <Header />
             <main className={style.main__user_page}>
                 {loading && <Loading />}
                 {!loading && singleRepoStore.repo && (
@@ -81,4 +79,4 @@ const UserPage = () => {
     );
 }
 
-export default UserPage;
+export default SingleRepo;

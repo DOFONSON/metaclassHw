@@ -11,9 +11,6 @@ type cliType = ClientProfileStore | undefined
 
 const Header: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
 
-    console.log(style);
-
-
     useEffect(() => {
         rootStore.userImg = cliStore ? cliStore?.data?.avatar_url : rootStore.userImg
         rootStore.userName = cliStore?.data?.login

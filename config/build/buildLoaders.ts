@@ -11,7 +11,8 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
             loader: 'css-loader',
             options: {
                 modules: {
-                    localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64]'
+                    localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64]',
+                    namedExport: false,
                 }
             }
         }, "sass-loader"]
@@ -19,7 +20,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
 
 
     const assetLoader = {
-        test: /\.(png|svg|jpeg|jpg|gif)$/ш,
+        test: /\.(png|svg|jpeg|jpg|gif)$/,
         type: 'asset/resource'
     }
 

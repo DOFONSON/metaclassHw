@@ -8,9 +8,9 @@ type UserIconProps = {
 
 const UserIcon: React.FC<UserIconProps> = ({ image, userName }) => {
     return (
-    <div className={style.userIcon}>
-        <h4 className={style.userIcon__name}>{userName ? userName : ''}</h4> <img src={image ? image : Icon} alt="user icon" className={style.header__user_img} />
-    </div>
+        <div className={style.userIcon}>
+            <h4 className={style.userIcon__name}>{userName ? userName : ''}</h4> <img src={image ? image : Icon} alt="user icon" className={style.header__user_img} />
+        </div>
     )
 }
 

@@ -2,6 +2,7 @@ import ArrowButton from "../../../../../../../components/ArrowButton"
 import { Link } from "react-router-dom"
 import { InfoProps } from "../../Info"
 import style from './Infohead.module.scss'
+import React from "react"
 const Infohead: React.FC<InfoProps> = ({ compURL, compName, headURL }) => {
 
     return (

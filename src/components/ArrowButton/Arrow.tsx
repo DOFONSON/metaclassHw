@@ -1,3 +1,4 @@
+import React from "react";
 
 type ArrowProps = {
     rotation: number;

@@ -6,6 +6,7 @@ import style from './header.module.scss'
 import { Link } from 'react-router-dom';
 import { observer } from "mobx-react-lite";
 import rootStore from "../../store/RootStore/RootStore/instanse";
+import React from "react";
 
 type cliType = ClientProfileStore | undefined
 
@@ -23,7 +24,7 @@ const Header: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
     return (
         <header className={style.header}>
             <LogoTitle></LogoTitle>
-            <Link to={'/user'} className={style.userLink}><UserIcon image={rootStore.userImg} userName={rootStore.userName}></UserIcon></Link>
+            <Link to={'/user'} className={style.userLink}><UserIcon image={cliStore?.data?.avatar_url} userName={rootStore.userName}></UserIcon></Link>
         </header>
     )
 }

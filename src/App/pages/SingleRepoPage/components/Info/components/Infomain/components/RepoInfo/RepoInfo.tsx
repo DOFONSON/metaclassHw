@@ -4,6 +4,7 @@ import { Eye } from './Img/Eye'
 import { Branch } from "./Img/Branch"
 import { InfoProps } from "../../../../Info"
 import style from './RepoInfo.module.scss'
+import React from "react"
 const RepoInfo: React.FC<InfoProps> = ({ repName, topics, stars, watchers, forks }) => {
     return (
         <div className="info_main__header">

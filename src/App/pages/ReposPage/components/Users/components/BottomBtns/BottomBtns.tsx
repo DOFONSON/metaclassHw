@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './BottomBtns.module.scss'
 import cn from 'clsx'
 type BtnProps = {

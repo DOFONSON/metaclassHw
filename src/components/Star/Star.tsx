@@ -1,3 +1,5 @@
+import React from "react"
+
 type ReadmeProps = {
     color: string
 }

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import style from './Languages.module.scss';
 
 type LanguagesProps = {

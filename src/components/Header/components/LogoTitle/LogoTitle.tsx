@@ -1,3 +1,4 @@
+import React from 'react'
 import Logo from './img/GitHubLogo.svg'
 import style from './LogoTitle.module.scss'
 const LogoTitle = () => {

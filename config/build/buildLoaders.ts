@@ -3,7 +3,7 @@ import { BuildOptions } from "./types/types";
 
 
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
-    const isDev = options.mode === 'development'
+    const isProd = options.mode === 'production'
 
 
     const getSettingsForStyles = (withModules: boolean) => {
@@ -11,7 +11,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
             loader: 'css-loader',
             options: {
                 modules: {
-                    localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64]',
+                    localIdentName: isProd ? '[path][name]__[local]' : '[hash:base64]',
                     namedExport: false,
                 }
             }

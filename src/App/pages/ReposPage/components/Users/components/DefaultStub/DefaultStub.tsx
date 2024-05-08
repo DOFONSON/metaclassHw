@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './DefaultStub.module.scss'
 const DefaultStub = () => {
     return (

@@ -1,6 +1,7 @@
 import Infohead from "./components/Infohead"
 import Infomain from "./components/Infomain";
 import rootStore from "../../../../../store/RootStore/RootStore/instanse";
+import React from "react";
 export type InfoProps = {
     compURL?: string;
     headURL?: URL

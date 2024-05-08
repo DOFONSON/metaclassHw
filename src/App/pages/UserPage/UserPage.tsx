@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ArrowButton from "../../../components/ArrowButton/ArrowButton";
 import { Link } from "react-router-dom";
 import style from './UserPage.module.scss'
+import React from "react";
 
 
 const UserPage = () => {

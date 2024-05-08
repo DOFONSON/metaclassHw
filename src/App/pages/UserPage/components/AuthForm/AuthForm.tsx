@@ -1,3 +1,4 @@
+import React from "react"
 import { ClientProfileStore } from "../../../../../store/ClientProfileStore/ClientProfileStore"
 
 type cliType = ClientProfileStore
@@ -5,7 +6,7 @@ type cliType = ClientProfileStore
 
 const AuthForm: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
 
-   
+
 
     return (
         <div className="form">

@@ -1,3 +1,4 @@
+import React from 'react'
 import Icon from './img/Ellipse 26.png'
 import style from './UserIcon.module.scss'
 
@@ -7,6 +8,8 @@ type UserIconProps = {
 }
 
 const UserIcon: React.FC<UserIconProps> = ({ image, userName }) => {
+    console.log(image);
+
     return (
         <div className={style.userIcon}>
             <h4 className={style.userIcon__name}>{userName ? userName : ''}</h4> <img src={image ? image : Icon} alt="user icon" className={style.header__user_img} />

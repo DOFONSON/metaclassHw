@@ -3,6 +3,7 @@ import Contributors from "./components/Contributors/Contributors"
 import Languages from "./components/Languages/Languages"
 import { InfoProps } from "../../Info"
 import style from './Infomain.module.scss'
+import React from "react"
 const Infomain: React.FC<InfoProps> = ({ repName, topics, stars, watchers, forks, contributors, languages }) => {
 
     return (

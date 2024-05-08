@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './ErrorStub.module.scss'
 const ErrorStub = () => {
     return (

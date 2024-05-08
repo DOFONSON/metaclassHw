@@ -9,6 +9,7 @@ import LoadingStub from './components/LoadingStub';
 import DefaultStub from './components/DefaultStub';
 import ErrorStub from './components/ErrorStub';
 import { RenderReposStore } from '../../../../../store/RenderReposStore/RenderReposStore';
+import React from 'react';
 
 interface UsersProps {
     ReposStore: RenderReposStore;

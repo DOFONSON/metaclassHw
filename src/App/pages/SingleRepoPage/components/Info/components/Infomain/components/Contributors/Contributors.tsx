@@ -1,3 +1,4 @@
+import React from "react";
 import { InfoProps } from "../../../../Info"
 import style from './Contributors.module.scss'
 const Contributors: React.FC<InfoProps> = ({ contributors }) => {

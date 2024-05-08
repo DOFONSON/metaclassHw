@@ -9,6 +9,7 @@ import ReposStore from '../../../store/RenderReposStore/RenderReposStore';
 import Loading from './components/Stub/Loading';
 import rootStore from '../../../store/RootStore/RootStore/instanse';
 import { useLocalObservable } from 'mobx-react-lite';
+import React from 'react';
 const SingleRepo = () => {
 
     const singleRepoStore = useLocalObservable(() => new SingleRepoStore())

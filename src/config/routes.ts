@@ -105,4 +105,5 @@ export const getOptionalData = async (contributors: string, languages: string, l
         console.error('Error while fetching data:', error);
     }
 }
+
 export default fetchRepos;

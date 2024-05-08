@@ -7,7 +7,6 @@ import { RenderReposStore } from '../../../store/RenderReposStore/RenderReposSto
 import { MultiStoreProvider } from '../../../components/MultiDropdown/MultiStoreContext';
 import { MultiStore } from '../../../store/MultiStore/MultiStore';
 const RepoPage = () => {
-
     const renderReposStore = useLocalObservable(() => new RenderReposStore());
     const multiStore = useLocalObservable(() => new MultiStore())
     return (

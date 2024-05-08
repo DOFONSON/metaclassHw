@@ -46,7 +46,7 @@ const UserPage = () => {
     return (
         <main className={style.main}>
             <ClientProfileStoreProvider value={cliStore}>
-                <Link to={-1}><ArrowButton side="left" onClick={() => { }} ></ArrowButton></Link>
+                <Link to={'/'}><ArrowButton side="left" onClick={() => { }} ></ArrowButton></Link>
                 {
                     !localStorage.getItem('accessToken') ? <AuthForm cliStore={cliStore} /> : <MainUser cliStore={cliStore} />
                 }

@@ -9,10 +9,21 @@
   },
   "baseUrl": "src",
   "paths": {
-    "components": ["components/*"],
-    "config": ["config/*"],
-    "styles": ["styles/*"],
-    "utils": ["utils/*"]
+    "components": [
+      "components/*"
+    ],
+    "config": [
+      "config/*"
+    ],
+    "styles": [
+      "styles/*"
+    ],
+    "utils": [
+      "utils/*"
+    ]
   },
-  "include": ["vite.config.ts", "tsconfig.json"]
+  "include": [
+    "vite.config.ts",
+    "tsconfig.json"
+  ]
 }

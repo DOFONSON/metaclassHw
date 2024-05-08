@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, toJS } from "mobx"
+import { action, makeObservable, observable } from "mobx"
 import { clientID } from "../../config/serverAuth"
 
 export class ClientProfileStore {
@@ -7,24 +7,29 @@ export class ClientProfileStore {
     constructor() {
         makeObservable(this, {
             data: observable,
-            getUserData: action
+            getUserData: action.bound
         })
     }
+
     gitHubLogin = () => {
         window.location.assign('https://github.com/login/oauth/authorize?client_id=' + clientID)
     }
 
-    async getUserData() {
-        await fetch('http://localhost:4000/getUserData', {
+    getUserData = async () => {
+        const response = await fetch('http://localhost:4000/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             }
-        }).then(response => response.json())
-        .then(data => this.data = data)
-        console.log(toJS(this.data));
-        
+        })
+        const data = await response.json()
+        this.setData(data)
     }
+
+    setData = action((data: any) => {
+        this.data = data
+    })
+
 }
 
 export default new ClientProfileStore()

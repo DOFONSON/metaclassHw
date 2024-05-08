@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, IReactionDisposer, reaction } from 'mobx';
+import { makeObservable, observable, action, IReactionDisposer, reaction, runInAction } from 'mobx';
 import rootStore from '../RootStore/RootStore/instanse';
 import { fetchRepos } from "../../config/routes";
 import { Repo } from "../../config/routes";
@@ -66,7 +66,6 @@ export class RenderReposStore {
     }
 
     async fetchRepos(query: string, state = false) {
-
         this.searchQuery = query;
         MultiStore.deleteTags();
         this.meta = Meta.Loading;
@@ -85,19 +84,20 @@ export class RenderReposStore {
         }
 
         this.multiStore.updateTags(arr);
-        this.renderedRepos = this.repos;
-        rootStore.repos = this.renderedRepos
-        this.tags = arr
+        runInAction(() => {
+            this.renderedRepos = this.repos;
+            rootStore.repos = this.renderedRepos;
+            this.tags = arr;
+            this.meta = Meta.Success;
+        });
 
-        this.meta = Meta.Success;
         if (!state) {
             this.url = new URL(window.location.href);
             this.url.searchParams.set('search', query);
-            this.url.searchParams.set('page', this.page.toString())
+            this.url.searchParams.set('page', this.page.toString());
             window.history.pushState({ path: this.url.href }, '', this.url.href);
-
+            rootStore.URL = this.url;
         }
-        rootStore.URL = this.url
     }
 
     filterRepos(options: any[]) {

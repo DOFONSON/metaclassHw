@@ -1,26 +1,39 @@
 import { ModuleOptions } from "webpack";
 import { BuildOptions } from "./types/types";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const isDev = options.mode === 'development'
 
 
+    const getSettingsForStyles = (withModules: boolean) => {
+        return ['style-loader', !withModules ? 'css-loader' : {
+            loader: 'css-loader',
+            options: {
+                modules: {
+                    localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64]'
+                }
+            }
+        }, "sass-loader"]
+    }
+
 
     const assetLoader = {
-        test: /\.(png|svg|jpeg|jpg|gif)$/i,
+        test: /\.(png|svg|jpeg|jpg|gif)$/ш,
         type: 'asset/resource'
     }
 
     const scssModuleLoader = {
-        test: /\.s[ac]ss$/i,
-        use: [
-            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader'
-        ]
+        test: /\.module\.s?css$/,
+        use: getSettingsForStyles(true)
     }
+
+    const scssLoader = {
+        test: /\.s?css$/,
+        exclude: /\.module\.s?css$/,
+        use: getSettingsForStyles(false)
+    }
+
 
     const tsLoader = {
         test: /\.tsx?$/,
@@ -28,7 +41,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         exclude: /node_modules/,
     }
     return [
-        assetLoader, scssModuleLoader, tsLoader
+        assetLoader, scssLoader, scssModuleLoader, tsLoader
 
     ]
 }

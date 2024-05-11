@@ -16,7 +16,6 @@ module.exports = api => {
         plugins.push('react-refresh/babel');
     }
 
-    // Добавляем плагины с одинаковой опцией "loose"
     plugins.push(
         ["@babel/plugin-transform-private-methods", { "loose": true }],
         ["@babel/plugin-transform-private-property-in-object", { "loose": true }]

@@ -1,5 +1,6 @@
 import axios from "axios";
-export const GITHUB_TOKEN = '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';
+export const GITHUB_TOKEN = '';
+
 
 export type Data = {
     id?: string;

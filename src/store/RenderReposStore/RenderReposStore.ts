@@ -120,15 +120,6 @@ export class RenderReposStore {
         }
     }
 
-
-    _qpPage: IReactionDisposer = reaction(
-        () => rootStore.query.getParam('page'),
-        (page) => {
-            if (typeof page == 'string') {
-                this.changePage(+page)
-            }
-        }
-    )
     _qpReaction: IReactionDisposer = reaction(
         () => rootStore.query.getParam('search'),
         (search) => {
@@ -138,6 +129,15 @@ export class RenderReposStore {
             }
         }
     )
+    _qpPage: IReactionDisposer = reaction(
+        () => rootStore.query.getParam('page'),
+        (page) => {
+            if (typeof page == 'string') {
+                this.changePage(+page)
+            }
+        }
+    )
+
 }
 
 const renderReposStore = new RenderReposStore();

@@ -55,7 +55,7 @@ module.exports = {
         filename: '[name]-[hash].css'
       }
     ),
-    new TsCheckerPlugin(),
+    isProd && new TsCheckerPlugin(),
     new CircularDependencyPlugin({
       exclude: /a\.js|node_modules/,
       include: /dir/,

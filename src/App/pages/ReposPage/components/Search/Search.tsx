@@ -8,13 +8,14 @@ import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite';
 import { MultiStore } from "../../../../../store/MultiStore/MultiStore"
 import { RenderReposStore } from "../../../../../store/RenderReposStore/RenderReposStore"
+import { useRootStore } from "../../../../../store/RootStore/RootStore/RootStoreContext"
 
 type multiStoreType = MultiStore
 type renderReposStoreType = RenderReposStore
 
 const Search: React.FC<{ RenderReposStore: renderReposStoreType, multiStore: multiStoreType }> = observer(({ RenderReposStore, multiStore }) => {
+    const rootStore = useRootStore()
     const [value, setValue] = React.useState<Option[]>([]);
-
     useEffect(() => {
         setValue([])
         multiStore.updateTags(RenderReposStore.tags);
@@ -33,7 +34,7 @@ const Search: React.FC<{ RenderReposStore: renderReposStoreType, multiStore: mul
             />
             <div className={styles.input_search_block}>
                 <Input id="searchInput" onChange={() => { }} className={'search__input_input'} ></Input>
-                <Button onClick={RenderReposStore.handleSearch}><SearchIcon /></Button>
+                <Button onClick={(RenderReposStore.handleSearch)}><SearchIcon /></Button>
             </div>
         </div >
     );

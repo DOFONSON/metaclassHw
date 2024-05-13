@@ -5,13 +5,22 @@ import SingleRepoPage from './pages/SingleRepoPage'
 import UserPage from './pages/UserPage';
 import { Routes, Route } from 'react-router-dom';
 import { RootStoreProvider } from '../store/RootStore/RootStore/RootStoreProvider';
-import { useLocalObservable } from 'mobx-react-lite';
+import { observer, useLocalObservable } from 'mobx-react-lite';
 import { ClientProfileStore } from '../store/ClientProfileStore/ClientProfileStore';
 import Header from '../components/Header';
-import React from 'react';
-const App = () => {
+import React, { useEffect } from 'react';
+import { useRootStore } from '../store/RootStore/RootStore/RootStoreContext';
+
+const App = observer(() => {
   useQueryParamStoreInit()
   const cliStore = useLocalObservable(() => new ClientProfileStore());
+  const rootStore = useRootStore()
+  let company = rootStore.query.getParam('search')
+  useEffect(() => {
+    console.log(rootStore.query.getParam('search'));
+  }, [company]);
+
+  console.log(rootStore.URL);
 
   return (
     <>
@@ -19,7 +28,7 @@ const App = () => {
       <RootStoreProvider>
         <Routes>
           <Route path='/' element={<ReposPage />}></Route>
-          <Route path='/repo'>
+          <Route path={`/repo`}>
             <Route path=':id' element={<SingleRepoPage />}></Route>
           </Route>
           <Route path='/user' element={<UserPage />}></Route>
@@ -28,7 +37,7 @@ const App = () => {
     </>
 
   )
-}
+})
 
 if (module.hot) {
   module.hot.accept()

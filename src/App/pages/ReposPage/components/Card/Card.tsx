@@ -5,6 +5,7 @@ import Star from '../../../../../components/Star'
 import styles from './styles.module.scss'
 
 import { Link } from 'react-router-dom';
+import { useRootStore } from '../../../../../store/RootStore/RootStore/RootStoreContext';
 export type CardProps = {
     className?: string,
     image: string;
@@ -20,8 +21,11 @@ export type CardProps = {
 };
 
 const Card: React.FC<CardProps> = ({ image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot, dateSlot, id }) => {
+    let url = new URL(window.location.href)
+    const rootStore = useRootStore()
     return (
-        <Link to={`/repo/${id}`} className={styles.repo_card__link}>
+        <Link to={`/repo/${id}${rootStore.URL.search}`} className={styles.repo_card__link}>
+
             <div className={cn(styles.repo_card__link, `${styles.cardIcon}`)} onClick={onClick}>
                 <div className={`${styles.img__block}`}>
                     <img src={image} alt="card photo" />

@@ -76,10 +76,6 @@
     "sass": "^1.77.0",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
-    "ts-loader": "9.5.0",
-    "ts-node": "10.9.1",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "4.15.1"

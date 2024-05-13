@@ -3,63 +3,39 @@ import Info from "./components/Info";
 import { useParams } from 'react-router-dom';
 import Readme from './components/Readme';
 import style from './UserPage.module.scss'
-import reposStore from '../../../store/RenderReposStore/RenderReposStore';
 import { SingleRepoStore } from '../../../store/RepoStore/RepoStore';
-import ReposStore from '../../../store/RenderReposStore/RenderReposStore';
 import Loading from './components/Stub/Loading';
-import rootStore from '../../../store/RootStore/RootStore/instanse';
-import { useLocalObservable } from 'mobx-react-lite';
+import { observer, useLocalObservable } from 'mobx-react-lite';
 import React from 'react';
-const SingleRepo = () => {
+import { Meta } from '../../../shared/meta';
 
+const SingleRepo = observer(() => {
     const singleRepoStore = useLocalObservable(() => new SingleRepoStore())
-
     const { id } = useParams<{ id: string }>();
-    if (id == undefined) return
-    let repo = rootStore.repos.entities[+id];
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const getRepos = async () => {
-            if (repo) {
-                let comp = new URL(window.location.href)
-                comp.searchParams.set('search', repo.companyLogin.toString())
-                window.history.pushState({ path: comp.href }, '', comp.href);
-            } else {
-                let comp = new URL(window.location.href)
-                if (comp.searchParams.get('search')) {
-                    await ReposStore.fetchRepos(comp.searchParams.get('search') || '')
-                    repo = reposStore.repos.entities[+id];
-                    const fetchData = async () => {
-                        if (repo) {
-                            await singleRepoStore.setRepo(repo);
-                            setLoading(false);
-                        }
-                    }
 
-                    fetchData();
-                }
+        if (id) {
+
+            const getRepos = async () => {
+                let url = new URL(window.location.href);
+
+                let comp = url.href.split('&search=')[1]
+
+                await singleRepoStore.fetchRepos(comp || '', +id)
             }
+            getRepos()
         }
-        getRepos()
-    }, [])
+    }, [id])
+
     useEffect(() => {
-
-        const fetchData = async () => {
-            if (repo) {
-                await singleRepoStore.setRepo(repo);
-                setLoading(false);
-            }
-        }
-
-        fetchData();
-    }, [repo]);
+    }, [singleRepoStore.meta])
 
     return (
         <>
             <main className={style.main__user_page}>
-                {loading && <Loading />}
-                {!loading && singleRepoStore.repo && (
+                {singleRepoStore.meta == Meta.Loading && <Loading />}
+                {singleRepoStore.meta == Meta.Success && singleRepoStore.repo && (
                     <>
                         <Info
                             compName={singleRepoStore.repo.companyLogin}
@@ -78,6 +54,6 @@ const SingleRepo = () => {
             </main>
         </>
     );
-}
+})
 
 export default SingleRepo;

@@ -22,7 +22,6 @@ const Users: React.FC<UsersProps> = ({ ReposStore }) => {
     const [currentPage, setCurrentPage] = useState(ReposStore.page);
     const reposPerPage = 9;
     let totalPages = Math.ceil(ReposStore.renderedRepos.order.length / reposPerPage);
-
     useEffect(() => {
         ReposStore.renderedRepos
     }, [ReposStore.meta, totalPages]);

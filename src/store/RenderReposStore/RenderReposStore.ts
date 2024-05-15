@@ -4,7 +4,8 @@ import { fetchRepos } from "../../config/routes";
 import { Repo } from "../../config/routes";
 import { CollectionModel, getInitialCollectionModel } from '../../shared/collection';
 import { Meta } from '../../shared/meta';
-import MultiStore from '../MultiStore/MultiStore';
+import { MultiStore } from '../MultiStore/MultiStore';
+
 export class RenderReposStore {
     repos: CollectionModel<number, Repo> = {
         order: [],
@@ -14,7 +15,7 @@ export class RenderReposStore {
         order: [],
         entities: {}
     };
-    multiStore
+    multiStore = new MultiStore()
     searchQuery: string = '';
     meta: Meta = Meta.Initial;
     page: number = 0;
@@ -45,8 +46,6 @@ export class RenderReposStore {
             this.changePage(+pageQueryParam);
         }
 
-        this.multiStore = MultiStore;
-
     }
 
     handleSearch = async () => {
@@ -67,7 +66,7 @@ export class RenderReposStore {
 
     async fetchRepos(query: string, state = false) {
         this.searchQuery = query;
-        MultiStore.deleteTags();
+        this.multiStore.deleteTags();
         this.meta = Meta.Loading;
         this.repos = getInitialCollectionModel();
         const response = await fetchRepos(query);
@@ -82,8 +81,9 @@ export class RenderReposStore {
             this.repos.entities[item.id] = item;
             arr.push(item);
         }
-
         this.multiStore.updateTags(arr);
+        console.log('qqweqweqweqwe', this.multiStore.tags);
+
         runInAction(() => {
             this.renderedRepos = this.repos;
             rootStore.repos = this.renderedRepos;

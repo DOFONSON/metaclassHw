@@ -14,10 +14,13 @@
 
 .repos {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, 360px);
+    grid-column-gap: 0;
     margin-top: 36px;
     row-gap: 80px;
-}
+    column-gap: 50px;
+    justify-content: center
+  }
 
 .repo_card__link {
     text-decoration: none;

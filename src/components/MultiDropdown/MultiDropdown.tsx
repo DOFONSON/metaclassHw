@@ -16,17 +16,18 @@ export type MultiDropdownProps = {
     onChange: (value: Option[]) => void;
     disabled?: boolean;
     getTitle: (value: Option[]) => string;
-    multiStore: any;
     renderReposStore: any;
 };
 
-const MultiDropdown: React.FC<MultiDropdownProps> = observer(({ className, options, value, onChange, disabled, getTitle, multiStore, renderReposStore }) => {
+const MultiDropdown: React.FC<MultiDropdownProps> = observer(({ className, options, value, onChange, disabled, getTitle, renderReposStore }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const ref = useRef<HTMLInputElement>(null);
     const [filter, setFilter] = useState('');
     const [isOpened, setIsOpened] = useState(false);
     useEffect(() => {
-    }, [multiStore.tags])
+        console.log(renderReposStore.multiStore.tags);
+
+    }, [renderReposStore.multiStore.tags])
 
     useEffect(() => {
         const handlerClick = (e: MouseEvent) => {
@@ -66,8 +67,8 @@ const MultiDropdown: React.FC<MultiDropdownProps> = observer(({ className, optio
 
 
         onChange(updatedValue);
-        multiStore.selectedTags = updatedValue;
-        renderReposStore.filterRepos(multiStore.selectedTags)
+        renderReposStore.multiStore.selectedTags = updatedValue;
+        renderReposStore.filterRepos(renderReposStore.multiStore.selectedTags)
         renderReposStore.changePage(0)
         ref.current?.focus();
     };

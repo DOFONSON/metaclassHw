@@ -1,4 +1,42 @@
-.main__user_avatar {
+.main__user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.user__avatar {
     width: 300px;
     border-radius: 50%;
+    margin-bottom: 20px;
 }
+
+.user__login {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--button-primary-bg);
+    margin-bottom: 10px;
+}
+
+.user__name {
+    color: var(--text-secondary);
+    margin-bottom: 22px;
+}
+
+.user__bio {
+    line-height: 20px;
+    max-width: 300px;
+}
+
+.list__item {
+    margin-top: 20px;
+}
+
+.additional_info__list {
+    display: grid;
+grid-template-rows: auto auto;
+grid-auto-flow: column;
+column-gap: 20px;
+font-size: 14px;
+line-height: 18px;
+font-weight: 400;
+}
+

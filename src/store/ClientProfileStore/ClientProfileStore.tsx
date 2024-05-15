@@ -1,13 +1,26 @@
-import { action, makeObservable, observable } from "mobx"
+import { action, makeObservable, observable, toJS } from "mobx"
 import { clientID } from "../../config/serverAuth"
+import { Meta } from "../../shared/meta"
 
 export class ClientProfileStore {
     data: any
-
+    meta: Meta = Meta.Initial
+    repos: {
+        languages: any,
+        languages_url: string 
+}[] = []
+    languages: any = []
     constructor() {
         makeObservable(this, {
             data: observable,
-            getUserData: action.bound
+            meta: observable,
+            repos: observable,
+            languages: observable,
+            getUserData: action.bound,
+            getAccessToken: action,
+            setRepos: action,
+            getLanguages: action,
+            setLanguages: action
         })
     }
 
@@ -24,10 +37,64 @@ export class ClientProfileStore {
         })
         const data = await response.json()
         this.setData(data)
+        const repos = await (await fetch(data.repos_url)).json()
+        this.setRepos(repos)
+    
+        const temp = await Promise.all(this.repos.map(async (repo) => {
+            if (repo.languages_url) {
+                console.log(repo.languages_url);
+                repo.languages = await (await fetch(repo.languages_url)).json()
+            }
+            return repo
+        }))
+    
+        this.setRepos(temp)
+    
     }
+
+    formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        return date.toLocaleDateString('en-US', options);
+    }
+    getAccessToken = async (codeParam: string) => {
+        this.meta = Meta.Loading
+        await fetch('http://localhost:4000/getAccessToken?code=' + codeParam, {
+            method: 'GET'
+        }).then(response => response.json())
+            .then(data => {
+
+                if (data.access_token) {
+                    localStorage.setItem('accessToken', data.access_token)
+                }
+            })
+            this.meta = Meta.Success
+    }
+
+    getLanguages = async (langUrl: string) => {
+        const qwe = await (await fetch(langUrl)).json()
+         return qwe
+    }
+
+    setRepos = action((repos: any) => {
+        this.repos = repos
+    }) 
 
     setData = action((data: any) => {
         this.data = data
+        this.data.created_at = this.formatDate(this.data.created_at)
+        this.data.updated_at = this.formatDate(this.data.updated_at)
+    })
+
+    setLanguages = action((languages: any) => {
+        this.languages = languages
     })
 
 }

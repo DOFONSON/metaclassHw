@@ -14,9 +14,7 @@ const RepoPage = () => {
             <main className={style.page__main}>
                 <div className={style.wrapper}>
                     <h2 className={style.RepoPage__org_list_title}>List of organization repositories</h2>
-                    <MultiStoreProvider value={multiStore}>
-                        <Search RenderReposStore={renderReposStore} multiStore={multiStore} />
-                    </MultiStoreProvider>
+                    <Search RenderReposStore={renderReposStore} />
                     <Users ReposStore={renderReposStore} />
                 </div>
             </main>

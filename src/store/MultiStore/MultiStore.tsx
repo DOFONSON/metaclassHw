@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from 'mobx';
+import { makeObservable, observable, action, toJS } from 'mobx';
 import { Option } from '../../components/MultiDropdown/MultiDropdown';
 
 export class MultiStore {
@@ -29,6 +29,7 @@ export class MultiStore {
                 }
             }
         }
+
         this.tags = temp
     }
 

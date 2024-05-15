@@ -1,6 +1,6 @@
 import RepoInfo from "./components/RepoInfo"
 import Contributors from "./components/Contributors/Contributors"
-import Languages from "./components/Languages/Languages"
+import Languages from "../../../../../../../components/Languages/Languages"
 import { InfoProps } from "../../Info"
 import style from './Infomain.module.scss'
 import React from "react"

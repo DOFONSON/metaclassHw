@@ -6,30 +6,26 @@ import SearchIcon from "../../../../../components/Button/SearchIconBtn"
 import styles from './styles.module.scss'
 import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite';
-import { MultiStore } from "../../../../../store/MultiStore/MultiStore"
 import { RenderReposStore } from "../../../../../store/RenderReposStore/RenderReposStore"
 import { useRootStore } from "../../../../../store/RootStore/RootStore/RootStoreContext"
 
-type multiStoreType = MultiStore
 type renderReposStoreType = RenderReposStore
 
-const Search: React.FC<{ RenderReposStore: renderReposStoreType, multiStore: multiStoreType }> = observer(({ RenderReposStore, multiStore }) => {
+const Search: React.FC<{ RenderReposStore: renderReposStoreType }> = observer(({ RenderReposStore }) => {
     const rootStore = useRootStore()
     const [value, setValue] = React.useState<Option[]>([]);
     useEffect(() => {
         setValue([])
-        multiStore.updateTags(RenderReposStore.tags);
-    }, [RenderReposStore.tags])
+    }, [RenderReposStore.multiStore.tags])
 
     return (
         <div className="search__main">
             <MultiDropdown
                 className={'search__drop'}
-                options={multiStore.tags}
+                options={RenderReposStore.multiStore.tags}
                 value={value}
                 onChange={setValue}
                 getTitle={(values: Option[]) => values.length === 0 ? 'Choose tags' : `Chosen: ${values.length}`}
-                multiStore={multiStore}
                 renderReposStore={RenderReposStore}
             />
             <div className={styles.input_search_block}>

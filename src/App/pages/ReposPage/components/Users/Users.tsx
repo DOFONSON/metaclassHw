@@ -53,6 +53,15 @@ const Users: React.FC<UsersProps> = ({ ReposStore }) => {
         }
     }
 
+
+    const smoothScroll = () => {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
+    }
+
     const btnChanger = (ind: number) => {
 
         let btnArr = document.querySelectorAll('.' + btnStyle.repos_bottom_btn);
@@ -68,6 +77,7 @@ const Users: React.FC<UsersProps> = ({ ReposStore }) => {
                 break;
             }
         }
+        smoothScroll()
         btnArr[ind - 1].classList.add(btnStyle.repos_bottom_btn_active);
     }
     useEffect(() => {
@@ -83,6 +93,7 @@ const Users: React.FC<UsersProps> = ({ ReposStore }) => {
 
         btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);
         btnArr[currentPage + 1].classList.add(btnStyle.repos_bottom_btn_active);
+        smoothScroll()
     };
 
     const prevPage = () => {
@@ -92,6 +103,7 @@ const Users: React.FC<UsersProps> = ({ ReposStore }) => {
         setCurrentPage(ReposStore.page);
         btnArr[currentPage].classList.remove(btnStyle.repos_bottom_btn_active);
         btnArr[currentPage - 1].classList.add(btnStyle.repos_bottom_btn_active);
+        smoothScroll()
     };
 
     return (

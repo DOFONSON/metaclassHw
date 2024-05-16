@@ -1,0 +1,32 @@
+.form {
+    margin:  0 auto;
+    padding: 20px 30px;
+    text-align: center;
+    width: 340px;
+    background-color: var( --img-border);
+    border-radius: 10px;
+    box-shadow: 6px 6px 2px 1px rgba(#000000, 0.2);
+}
+
+.form__title {
+    font-size: 24px;
+    color: var(--button-primary-bg);
+    margin-bottom: 30px;
+}
+
+
+.form__btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    transition: 0.3s;
+    background-color: var(--button-primary-bg);
+    color: var(--btn-active-text);
+    font-size: 16px;
+    &:hover {
+        background-color: var(--brand-hover);
+    }
+    &:active {
+        background-color: var(--brand-active);
+    }
+}

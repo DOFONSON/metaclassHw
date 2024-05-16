@@ -3,6 +3,7 @@ import { ClientProfileStore } from "../../../../../store/ClientProfileStore/Clie
 import style from './MainUser.module.scss'
 import { toJS } from "mobx"
 import UserRepos from "./components/UserRepos"
+import LoadingStub from "../Stubs/LoadingStub/LoadingStub"
 type cliType = ClientProfileStore
 
 const MainUser: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
@@ -24,7 +25,7 @@ const MainUser: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
     }
     
     return (
-        (data &&
+        (data ?
             <div>
                 <div className={style.main__user}>
                     <div>
@@ -46,7 +47,7 @@ const MainUser: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
                 </div>
                 
                 <UserRepos repos={repos} />
-            </div>)
+            </div> : <LoadingStub/>)
     )
 }
 

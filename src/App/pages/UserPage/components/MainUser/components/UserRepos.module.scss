@@ -1,0 +1,35 @@
+.repo {
+    padding: 10px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.repo__name {
+    font-size: 20px;
+    color: var(--repo-link);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+
+.repo__description {
+    padding: 10px;
+}
+
+.repo__link_btn {
+    padding: 15px;
+    background-color: var(--button-primary-bg);
+    color: var(--card-bg);
+    text-decoration: none;
+    font-size: 18px;
+    &:hover {
+        background-color: var(--brand-hover);
+    }
+    &:active {
+        background-color: var(--brand-active);
+    }
+}

@@ -2,6 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 5px solid var(--button-primary-bg);
+    border-radius: 10px;
+    padding: 30px 10px;
+    margin-bottom: 40px;
 }
 .user__avatar {
     width: 300px;
@@ -31,12 +35,8 @@
 }
 
 .additional_info__list {
-    display: grid;
-grid-template-rows: auto auto;
-grid-auto-flow: column;
-column-gap: 20px;
-font-size: 14px;
-line-height: 18px;
-font-weight: 400;
+    font-size: 24px;
+    color: var(--brand-active);
+    font-weight: 500;
 }
 

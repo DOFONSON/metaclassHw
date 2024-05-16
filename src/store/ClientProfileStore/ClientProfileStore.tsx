@@ -35,8 +35,14 @@ export class ClientProfileStore {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
             }
         })
+        
         const data = await response.json()
+
+        console.log('re:', data);
+
         this.setData(data)
+        console.log(data);
+        
         const repos = await (await fetch(data.repos_url)).json()
         this.setRepos(repos)
     
@@ -54,18 +60,20 @@ export class ClientProfileStore {
 
     formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
+        const options: Intl.DateTimeFormatOptions = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
         };
         return date.toLocaleDateString('en-US', options);
-    }
+      }
     getAccessToken = async (codeParam: string) => {
         this.meta = Meta.Loading
+        console.log(codeParam);
+        
         await fetch('http://localhost:4000/getAccessToken?code=' + codeParam, {
             method: 'GET'
         }).then(response => response.json())
@@ -74,7 +82,9 @@ export class ClientProfileStore {
                 if (data.access_token) {
                     localStorage.setItem('accessToken', data.access_token)
                 }
-            })
+            }).catch(er => console.log(er)
+            )
+            
             this.meta = Meta.Success
     }
 

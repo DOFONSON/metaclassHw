@@ -72,6 +72,8 @@ export class RenderReposStore {
 
     async fetchRepos(query: string, state = false) {
         this.url.searchParams.delete('tags')
+        this.multiStore.updateTags([])
+        this.multiStore.selectedTags = []
         this.url = new URL(window.location.href);
         this.url.searchParams.set('search', query);
         this.url.searchParams.set('page', this.page.toString());

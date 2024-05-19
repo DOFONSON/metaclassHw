@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, IReactionDisposer, reaction, runInAction } from 'mobx';
+import { makeObservable, observable, action, IReactionDisposer, reaction, runInAction, toJS } from 'mobx';
 import rootStore from '../RootStore/RootStore/instanse';
 import { fetchRepos } from "../../config/routes";
 import { Repo } from "../../config/routes";
@@ -34,7 +34,7 @@ export class RenderReposStore {
             filterRepos: action,
             changePage: action
         });
-
+        const tagsQueryParam = rootStore.query.getParam('tags');
         const pageQueryParam = rootStore.query.getParam('page');
         const searchQueryParam = rootStore.query.getParam('search');
 
@@ -45,6 +45,12 @@ export class RenderReposStore {
         if (typeof pageQueryParam === 'string') {
             this.changePage(+pageQueryParam);
         }
+
+        if (typeof tagsQueryParam === 'string') {
+            const tags = tagsQueryParam.split(',');
+            this.multiStore.selectedTags = tags.map((tag) => ({ key: tag, value: tag }));
+            this.filterRepos(this.multiStore.selectedTags);
+          }
 
     }
 
@@ -65,6 +71,12 @@ export class RenderReposStore {
     }
 
     async fetchRepos(query: string, state = false) {
+        this.url.searchParams.delete('tags')
+        this.url = new URL(window.location.href);
+        this.url.searchParams.set('search', query);
+        this.url.searchParams.set('page', this.page.toString());
+        window.history.pushState({ path: this.url.href }, '', this.url.href);
+        rootStore.URL = this.url;
         this.searchQuery = query;
         this.multiStore.deleteTags();
         this.meta = Meta.Loading;
@@ -82,7 +94,6 @@ export class RenderReposStore {
             arr.push(item);
         }
         this.multiStore.updateTags(arr);
-        console.log('qqweqweqweqwe', this.multiStore.tags);
 
         runInAction(() => {
             this.renderedRepos = this.repos;
@@ -90,35 +101,37 @@ export class RenderReposStore {
             this.tags = arr;
             this.meta = Meta.Success;
         });
-
-        if (!state) {
-            this.url = new URL(window.location.href);
-            this.url.searchParams.set('search', query);
-            this.url.searchParams.set('page', this.page.toString());
-            window.history.pushState({ path: this.url.href }, '', this.url.href);
-            rootStore.URL = this.url;
-        }
+        
     }
 
     filterRepos(options: any[]) {
         if (options.length === 0) {
-            this.renderedRepos = this.repos;
-            return;
+          this.renderedRepos = this.repos;
+          this.url.searchParams.delete('tags');
+          window.history.pushState({ path: this.url.href }, '', this.url.href);
+          rootStore.URL = this.url;
+          return;
         }
         this.renderedRepos = {
-            order: [],
-            entities: {}
+          order: [],
+          entities: {}
         };
+        
+        const tags = options.map((option) => option.value);
+        this.url.searchParams.set('tags', tags.join(','));
+        window.history.pushState({ path: this.url.href }, '', this.url.href);
+        rootStore.URL = this.url;
         for (const option of options) {
             for (const key in this.repos.entities) {
                 const tagArr = this.repos.entities[key].topics;
-                if (tagArr.includes(option.value) && !this.renderedRepos.order.includes(+key)) {
-                    this.renderedRepos.order.push(+key);
-                    this.renderedRepos.entities[key] = this.repos.entities[key];
-                }
+            if (tagArr.includes(option.value) &&!this.renderedRepos.order.includes(+key)) {
+              
+              this.renderedRepos.order.push(+key);
+              this.renderedRepos.entities[key] = this.repos.entities[key];
             }
+          }
         }
-    }
+      }
 
     _qpReaction: IReactionDisposer = reaction(
         () => rootStore.query.getParam('search'),

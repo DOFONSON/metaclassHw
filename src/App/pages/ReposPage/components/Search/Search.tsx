@@ -15,7 +15,10 @@ const Search: React.FC<{ RenderReposStore: renderReposStoreType }> = observer(({
     const rootStore = useRootStore()
     const [value, setValue] = React.useState<Option[]>([]);
     useEffect(() => {
-        setValue([])
+        setValue([]);
+      }, []);
+    useEffect(() => {
+        setValue(RenderReposStore.multiStore.selectedTags)
     }, [RenderReposStore.multiStore.tags])
 
     return (
@@ -29,7 +32,7 @@ const Search: React.FC<{ RenderReposStore: renderReposStoreType }> = observer(({
                 renderReposStore={RenderReposStore}
             />
             <div className={styles.input_search_block}>
-                <Input id="searchInput" onChange={() => { }} className={'search__input_input'} ></Input>
+                <Input id="searchInput" onChange={() => { }} className={'search__input_input'} placeholder={RenderReposStore.searchQuery}></Input>
                 <Button onClick={(RenderReposStore.handleSearch)}><SearchIcon /></Button>
             </div>
         </div >

@@ -24,7 +24,7 @@ const App = observer(() => {
         <Routes>
           <Route path='/' element={<ReposPage />}></Route>
           <Route path={`/repo`}>
-            <Route path=':id' element={<SingleRepoPage />}></Route>
+            <Route path=':name' element={<SingleRepoPage />}></Route>
           </Route>
           <Route path='/user' element={<UserPage />}></Route>
         </Routes>

@@ -20,34 +20,29 @@ export class SingleRepoStore {
             setRepo: action
         });
     }
-    async fetchRepos(query: string, id: number) {
+    async fetchRepos(query: string, name: string) {
         this.meta = Meta.Loading;
-        this.repos = getInitialCollectionModel();
-        const response = await fetchRepos(query);
-        if (response.length === 0) {
+        const response = await (await (fetch(`https://api.github.com/repos/${query}/${name}`))).json()
+        if (!response) {
             this.meta = Meta.Error;
             return;
         }
-
-        const arr: any = [];
-        for (const item of response) {
-            this.repos.order.push(item.id);
-            this.repos.entities[item.id] = item;
-            arr.push(item);
-        }
-        return await this.setRepo(this.repos.entities[id]);
+        return await this.setRepo(response, query, name);
     }
-    setRepo = async (value: Repo) => {
+    setRepo = async (value: Repo, query: string, name: string) => {
         if (value) {
             this.repo = value;
-            this.repo = await getOptionalData(this.repo.contributors, this.repo.languagesResult, this.repo.companyLogin, this.repo.name, this.repo)
+            console.log(query);
+            
+            this.repo = await getOptionalData(this.repo.contributors_url, this.repo.languages_url, query, name, this.repo)
 
         } else {
             console.error("Invalid repo object or missing contributors property");
         }
-
+        console.log(this.repo);
+        
         this.meta = Meta.Success;
-
+        
         return this.repo
 
     }

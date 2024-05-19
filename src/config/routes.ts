@@ -1,5 +1,5 @@
 import axios from "axios";
-export const GITHUB_TOKEN = '';
+export const GITHUB_TOKEN = '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';
 
 
 export type Data = {
@@ -10,7 +10,7 @@ export type Data = {
         avatar_url?: string;
         login: string;
     };
-    name?: string;
+    name?: string;  
     updated_at: string;
     topics: string[];
     watchers: number;
@@ -22,7 +22,8 @@ export type Data = {
 export type Repo = {
     id: number;
     owner?: {
-        login?: string
+        login?: string;
+        avatar_url: string
     }
     stargazersCount: number;
     description: string;
@@ -36,6 +37,8 @@ export type Repo = {
     contributors: string;
     languagesResult: string;
     readme: string | undefined;
+    contributors_url: string;
+    languages_url: string;
 };
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

@@ -24,7 +24,8 @@ const Users: React.FC<UsersProps> = ({ ReposStore }) => {
     let totalPages = Math.ceil(ReposStore.renderedRepos.order.length / reposPerPage);
     useEffect(() => {
         ReposStore.renderedRepos
-    }, [ReposStore.meta, totalPages]);
+        ReposStore.filterRepos(ReposStore.multiStore.selectedTags)
+    }, [ReposStore.meta, ReposStore.multiStore.selectedTags]);
 
     useEffect(() => {
         const newBtnsCount = Math.ceil(ReposStore.renderedRepos.order.length / reposPerPage);

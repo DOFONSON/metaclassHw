@@ -15,7 +15,6 @@ const MainUser: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
     }, [])
 
     useEffect(() => {
-        console.log(toJS(data));
     }, [data])
 
     const getCliData = async () => {

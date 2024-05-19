@@ -7,6 +7,7 @@ export class MultiStore {
     selectedTags: Option[] = []
     constructor() {
         makeObservable(this, {
+            selectedTags: observable.ref,
             tags: observable.ref,
             updateTags: action,
             deleteTags: action
@@ -25,7 +26,7 @@ export class MultiStore {
             for (const top of element.topics) {
                 const existingTag = this.tags.find(tag => tag.value === top);
                 if (!existingTag) {
-                    temp.push({ key: top + Math.random(), value: top });
+                    temp.push({ key: top, value: top });
                 }
             }
         }

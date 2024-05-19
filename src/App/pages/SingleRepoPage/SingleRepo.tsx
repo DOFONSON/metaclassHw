@@ -11,22 +11,23 @@ import { Meta } from '../../../shared/meta';
 
 const SingleRepo = observer(() => {
     const singleRepoStore = useLocalObservable(() => new SingleRepoStore())
-    const { id } = useParams<{ id: string }>();
+    const { name } = useParams<{ name: string }>();
 
     useEffect(() => {
 
-        if (id) {
-
+        if (name) {
+            console.log(name);
+            
             const getRepos = async () => {
                 let url = new URL(window.location.href);
 
-                let comp = url.href.split('&search=')[1]
+                let comp = url.href.split('&search=')[1].split('&')[0]
 
-                await singleRepoStore.fetchRepos(comp || '', +id)
+                await singleRepoStore.fetchRepos(comp || '', name)
             }
             getRepos()
         }
-    }, [id])
+    }, [name])
 
     useEffect(() => {
     }, [singleRepoStore.meta])
@@ -38,8 +39,8 @@ const SingleRepo = observer(() => {
                 {singleRepoStore.meta == Meta.Success && singleRepoStore.repo && (
                     <>
                         <Info
-                            compName={singleRepoStore.repo.companyLogin}
-                            compURL={singleRepoStore.repo.avatarUrl}
+                            compName={singleRepoStore.repo.owner?.login}
+                            compURL={singleRepoStore.repo.owner?.avatar_url}
                             repName={singleRepoStore.repo.name}
                             topics={singleRepoStore.repo.topics}
                             stars={singleRepoStore.repo.stargazersCount}

@@ -13,7 +13,6 @@ const Readme: React.FC<ReadmeProps> = ({ data }) => {
     let ftext = text?.split('*') || []
     for (let i = 1; i < ftext.length; i++) {
         if (i == 0) {
-            console.log(ftext[i]);
             ftext[i] = ftext[i] + `<ul class=${style.listik}>`
         } else {
             ftext[i] = '<li>' + ftext[i] + '</li>';

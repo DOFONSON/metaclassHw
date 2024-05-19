@@ -38,17 +38,14 @@ export class ClientProfileStore {
         
         const data = await response.json()
 
-        console.log('re:', data);
 
         this.setData(data)
-        console.log(data);
         
         const repos = await (await fetch(data.repos_url)).json()
         this.setRepos(repos)
     
         const temp = await Promise.all(this.repos.map(async (repo) => {
             if (repo.languages_url) {
-                console.log(repo.languages_url);
                 repo.languages = await (await fetch(repo.languages_url)).json()
             }
             return repo
@@ -72,7 +69,6 @@ export class ClientProfileStore {
       }
     getAccessToken = async (codeParam: string) => {
         this.meta = Meta.Loading
-        console.log(codeParam);
         
         await fetch('http://localhost:4000/getAccessToken?code=' + codeParam, {
             method: 'GET'

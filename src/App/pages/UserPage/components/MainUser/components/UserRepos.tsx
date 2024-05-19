@@ -22,7 +22,6 @@ type Repo = {
 
 const UserRepos = (repos: Repos) => {
     const rootStore = useRootStore()
-    console.log(repos.repos);
     
   return (
     <ul className={style.repo__list}>

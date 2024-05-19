@@ -24,23 +24,19 @@ const MultiDropdown: React.FC<MultiDropdownProps> = observer(({ className, optio
     const ref = useRef<HTMLInputElement>(null);
     const [filter, setFilter] = useState('');
     const [isOpened, setIsOpened] = useState(false);
+    
     useEffect(() => {
-        console.log(renderReposStore.multiStore.tags);
-
-    }, [renderReposStore.multiStore.tags])
-
-    useEffect(() => {
+        
         const handlerClick = (e: MouseEvent) => {
             if (!wrapperRef.current?.contains(e.target as HTMLElement)) {
                 setIsOpened(false);
             }
         };
-
         window.addEventListener('click', handlerClick);
-
         return () => {
             window.removeEventListener('click', handlerClick);
         };
+       
     }, []);
 
     useEffect(() => {
@@ -55,18 +51,19 @@ const MultiDropdown: React.FC<MultiDropdownProps> = observer(({ className, optio
     const filteredOptions = options.filter(o => o.value.toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) === 0);
 
     const selectedKeysSet = new Set(value.map(({ key }) => key));
-
+    
     const onSelect = (option: Option) => {
+        
         if (disabled) {
             return;
         }
-
         const updatedValue = selectedKeysSet.has(option.key)
             ? value.filter(({ key }) => key !== option.key)
             : [...value, option];
 
-
+        
         onChange(updatedValue);
+        
         renderReposStore.multiStore.selectedTags = updatedValue;
         renderReposStore.filterRepos(renderReposStore.multiStore.selectedTags)
         renderReposStore.changePage(0)

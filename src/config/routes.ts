@@ -1,7 +1,6 @@
 import axios from "axios";
 export const GITHUB_TOKEN = '';
 
-
 export type Data = {
     id?: string;
     stargazers_count?: number;

@@ -6,6 +6,7 @@
     border: 2px solid var(--brand);
     box-sizing: border-box;
     height: auto;
+    position: relative;
 
     &:focus {
         height: 52.4px;
@@ -16,13 +17,14 @@
     }
 }
 
-.super_input_block {
-    position: relative;
-}
 
 .srchinp_label {
-    display: flex;
-    min-width: 90%;
+    width: fit-content;
+    flex: 0 0 90%;
+}
+
+.srchinp_input {
+    min-width: 100%;
 }
 
 .input_icon {
@@ -34,8 +36,4 @@
 .super_input:disabled {
     background-color: var(--white);
     color: rgba(0, 0, 0, 0.2);
-}
-
-.srchinp_input {
-        min-width: 90%;
 }

@@ -66,7 +66,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = observer(({ className, optio
         
         renderReposStore.multiStore.selectedTags = updatedValue;
         renderReposStore.filterRepos(renderReposStore.multiStore.selectedTags)
-        renderReposStore.changePage(0)
+        renderReposStore.changePage(1)
         ref.current?.focus();
     };
 

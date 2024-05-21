@@ -5,6 +5,10 @@
     background-color: inherit;
     border: none;
     padding: 10px 14px;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.5;
+    }
 }
 
 .repos_bottom_btn_active {

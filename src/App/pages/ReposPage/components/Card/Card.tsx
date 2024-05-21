@@ -21,8 +21,8 @@ export type CardProps = {
 };
 
 const Card: React.FC<CardProps> = ({ image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot, dateSlot, id }) => {
-    let url = new URL(window.location.href)
     const rootStore = useRootStore()
+    
     return (
         <Link to={`/repo/${title}${rootStore.URL.search}`} className={styles.repo_card__link}>
 

@@ -7,7 +7,9 @@ export class ClientProfileStore {
     meta: Meta = Meta.Initial
     repos: {
         languages: any,
-        languages_url: string 
+        languages_url: string ,
+        pushed_at: string,
+        created_at: string
 }[] = []
     languages: any = []
     constructor() {
@@ -50,22 +52,21 @@ export class ClientProfileStore {
             }
             return repo
         }))
-    
+        console.log(temp);
+        temp.forEach(repo => {
+            repo.pushed_at = this.formatDate(repo.pushed_at)
+            repo.created_at = this.formatDate(repo.created_at)
+        })
         this.setRepos(temp)
     
     }
 
     formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        const options: Intl.DateTimeFormatOptions = {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        };
-        return date.toLocaleDateString('en-US', options);
+        const day = date.getDate();
+        const month = date.toLocaleString('en-US', { month: 'long' });
+        const year = date.getFullYear();
+        return `${day} ${month} ${year}`;
       }
     getAccessToken = async (codeParam: string) => {
         this.meta = Meta.Loading
@@ -94,10 +95,10 @@ export class ClientProfileStore {
     }) 
 
     setData = action((data: any) => {
-        this.data = data
-        this.data.created_at = this.formatDate(this.data.created_at)
-        this.data.updated_at = this.formatDate(this.data.updated_at)
-    })
+        this.data = data;
+        this.data.updated_at = this.formatDate(data.updated_at);
+        this.data.created_at = this.formatDate(data.created_at);
+      })
 
     setLanguages = action((languages: any) => {
         this.languages = languages

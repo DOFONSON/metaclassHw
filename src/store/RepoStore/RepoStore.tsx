@@ -2,7 +2,7 @@ import { observable, makeObservable, action, runInAction, toJS } from "mobx";
 import fetchRepos, { Repo } from "../../config/routes";
 import { getOptionalData } from "../../config/routes";
 import { Meta } from '../../shared/meta';
-import { CollectionModel, getInitialCollectionModel } from "../../shared/collection";
+import { CollectionModel } from "../../shared/collection";
 
 export class SingleRepoStore {
     repo: Repo | undefined = undefined

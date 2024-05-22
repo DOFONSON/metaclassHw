@@ -26,7 +26,7 @@ const Readme: React.FC<ReadmeProps> = ({ data }) => {
     finatext[0] = `<span class=${style.readme__tite_title}>` + finatext[0] + '</span>'
     let finaltext = finatext.join('<br>')
     return (
-        <div className={style.readme}>
+        <div className={`${style.readme} markdown-body-light.css`}>
             <h2 className={style.readme__title}>README.md</h2>
             <div className={style.readme__main}>
                 <p dangerouslySetInnerHTML={{ __html: finaltext || '' }} />

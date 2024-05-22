@@ -1,5 +1,7 @@
 import axios from "axios";
+import { marked } from "marked";
 export const GITHUB_TOKEN = '';
+
 
 export type Data = {
     id?: string;
@@ -81,6 +83,16 @@ export const fetchRepos = async (organisation: string) => {
         return [];
     }
 };
+function decodeBase64(encoded:any) {
+    const decoded = atob(encoded);  // Decode base64
+    const bytes = new Uint8Array(decoded.length);
+    for (let i = 0; i < decoded.length; i++) {
+        bytes[i] = decoded.charCodeAt(i);
+    }
+    const text = new TextDecoder('utf-8').decode(bytes);
+    return text;
+}
+
 export const getOptionalData = async (contributors: string, languages: string, login: string, name: string, repo: Repo) => {
     try {
 
@@ -90,8 +102,11 @@ export const getOptionalData = async (contributors: string, languages: string, l
 
         let readmeContent: string | undefined = undefined;
         try {
-            const readmeResult = await axiosGetData(`https://api.github.com/repos/${login}/${name}/readme`, GITHUB_TOKEN)
-            readmeContent = decodeURIComponent(escape(atob(readmeResult.data.content)));
+            const readmeResult = await axiosGetData(`https://api.github.com/repos/${login}/${name}/readme`, GITHUB_TOKEN).then(response => {
+                const markdown = decodeBase64(response.data.content);
+                return marked(markdown);
+              });
+            readmeContent = readmeResult;
         } catch (error) {
             console.error('Error while fetching:', error);
         }

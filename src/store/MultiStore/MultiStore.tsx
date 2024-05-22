@@ -24,7 +24,10 @@ export class MultiStore {
         for (let i = 0; i < data.length; i++) {
             const element: any = data[i];
             for (const top of element.topics) {
-                const existingTag = this.tags.find(tag => tag.value === top);
+                console.log(top);
+                console.log(this.tags);
+                
+                const existingTag = temp.find(tag => tag.value === top);
                 if (!existingTag) {
                     temp.push({ key: top, value: top });
                 }

@@ -2,7 +2,6 @@ import axios from "axios";
 import { marked } from "marked";
 export const GITHUB_TOKEN = '';
 
-
 export type Data = {
     id?: string;
     stargazers_count?: number;

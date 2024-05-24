@@ -26,7 +26,7 @@ const UserPage = () => {
 
     return (
         <main className={style.main}>
-                <Link to={-1}><ArrowButton side="left" onClick={() => { }} ></ArrowButton></Link>
+                <Link to={'/'}><ArrowButton side="left" onClick={() => { }} ></ArrowButton></Link>
                 {
                     !localStorage.getItem('accessToken') ? <AuthForm cliStore={rootStore.cliProfileStore} /> : <MainUser cliStore={rootStore.cliProfileStore} />
                 }

@@ -13,7 +13,9 @@ const RepoPage = () => {
         <React.Fragment>
             <main className={style.page__main}>
                 <div className={style.wrapper}>
+                    <div className={style.RepoPage__block_org_list_title}>
                     <h2 className={style.RepoPage__org_list_title}>List of organization repositories</h2>
+                    </div>
                     <Search RenderReposStore={renderReposStore} />
                     <Users ReposStore={renderReposStore} />
                 </div>

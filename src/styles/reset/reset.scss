@@ -138,4 +138,15 @@ table {
     max-width: 980px;
     margin: 0 auto;
     padding: 45px;
+    h4 {
+        font-size: 20px;
+        color: #000;
+        font-weight: bold;
+    }
+}
+
+pre {
+    background-color: #D9D9D9;
+    color: #000;
+    padding: 10px 10px;
 }

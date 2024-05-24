@@ -2,6 +2,7 @@
   "name": "metadzthird",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://DOFONSON.github.io/github-cli",
   "type": "commonjs",
   "scripts": {
     "start": "webpack serve",
@@ -10,6 +11,7 @@
     "ts-check": "tsc --skipLibCheck --noEmit --project tsconfig.json",
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\"",
     "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
     "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
@@ -67,6 +69,7 @@
     "express-session": "^1.18.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "5.5.3",
     "less-loader": "^12.2.0",
     "mini-css-extract-plugin": "^2.9.0",

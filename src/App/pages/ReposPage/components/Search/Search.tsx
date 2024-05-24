@@ -14,6 +14,7 @@ type renderReposStoreType = RenderReposStore
 const Search: React.FC<{ RenderReposStore: renderReposStoreType }> = observer(({ RenderReposStore }) => {
     const rootStore = useRootStore()
     const [value, setValue] = React.useState<Option[]>([]);
+    const [inpValue, setInpValue] = React.useState(RenderReposStore.searchQuery);
     useEffect(() => {
         setValue([]);
       }, []);
@@ -32,7 +33,7 @@ const Search: React.FC<{ RenderReposStore: renderReposStoreType }> = observer(({
                 renderReposStore={RenderReposStore}
             />
             <div className={styles.input_search_block}>
-                <Input id="searchInput" onChange={() => { }} className={'search__input_input'} placeholder={RenderReposStore.searchQuery}></Input>
+                <Input id="searchInput" onChange={setInpValue} className={'search__input_input'} value={inpValue}></Input>
                 <Button onClick={(RenderReposStore.handleSearch)}><SearchIcon /></Button>
             </div>
         </div >

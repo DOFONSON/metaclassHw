@@ -24,7 +24,7 @@ const Header: React.FC<{ cliStore: cliType }> = ({ cliStore }) => {
     return (
         <header className={style.header}>
             <LogoTitle></LogoTitle>
-            <Link to={'/user'} className={style.userLink}><UserIcon image={cliStore?.data?.avatar_url} userName={rootStore.userName}></UserIcon></Link>
+            <Link to={'/user'} className={style.userLink}><UserIcon image={cliStore?.data?.avatar_url} userName={cliStore?.data?.login}></UserIcon></Link>
         </header>
     )
 }

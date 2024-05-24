@@ -42,6 +42,7 @@ export class ClientProfileStore {
 
 
         this.setData(data)
+        console.log(data);
         
         const repos = await (await fetch(data.repos_url)).json()
         this.setRepos(repos)
